@@ -38,7 +38,7 @@ class LyricsRepository(private val context: Context) {
         try {
             retriever.setDataSource(context, song.uri)
             val raw = retriever.extractMetadata(
-                MediaMetadataRetriever.METADATA_KEY_LYRICS
+                1000 // MediaMetadataRetriever.METADATA_KEY_LYRICS (API 29+)
             ) ?: return null
             if (raw.isBlank()) return null
             return Lyrics.fromEmbedded(raw)
