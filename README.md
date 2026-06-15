@@ -2,9 +2,13 @@
   <img src="app/src/main/res/drawable/logo.png" alt="Pixelus Music" width="128" height="128">
 </p>
 
-# Pixelus Music
+<p align="center">
+  <h1 align="center">Pixelus Music</h1>
+</p>
 
-A local Android music player with a Lotus-inspired design, built for Pixel devices.
+<p align="center">
+  A local Android music player, built for Pixel devices.
+</p>
 
 ## Features
 
