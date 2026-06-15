@@ -141,7 +141,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                     currentScreen == "now_playing" -> {
-                        playerState.currentSong?.let {
+                        if (playerState.currentSong != null) {
                             NowPlayingScreen(
                                 playerState = playerState,
                                 onBack = { currentScreen = "library" },

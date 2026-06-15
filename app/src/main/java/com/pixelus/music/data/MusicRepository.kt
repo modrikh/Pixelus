@@ -28,7 +28,7 @@ class MusicRepository(private val context: Context) {
         val selection = "${MediaStore.Audio.Media.IS_MUSIC} != 0"
         val sortOrder = "${MediaStore.Audio.Media.TITLE} ASC"
 
-        val c = context.contentResolver.query(uri, projection, selection, null, sortOrder) ?: return@songs emptyList()
+        val c = context.contentResolver.query(uri, projection, selection, null, sortOrder) ?: return@withContext emptyList()
         c.use {
             val idCol = it.getColumnIndexOrThrow(MediaStore.Audio.Media._ID)
             val titleCol = it.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE)

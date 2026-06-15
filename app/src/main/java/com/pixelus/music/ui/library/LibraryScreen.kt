@@ -95,7 +95,8 @@ fun LibraryScreen(
                     contentColor = Primary,
                     indicator = { tabPositions ->
                         if (selectedTab.ordinal < tabPositions.size) {
-                            TabRowDefaults.SecondaryIndicator(
+                            @Suppress("DEPRECATION")
+                            TabRowDefaults.Indicator(
                                 modifier = Modifier.tabIndicatorOffset(tabPositions[selectedTab.ordinal]),
                                 color = Primary
                             )

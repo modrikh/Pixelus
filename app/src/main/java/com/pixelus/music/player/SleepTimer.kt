@@ -16,10 +16,10 @@ class SleepTimer {
         remainingMs = durationMs
         job = CoroutineScope(Dispatchers.Default).launch {
             val startTime = System.currentTimeMillis()
-            while (isActive) {
+            while (this@SleepTimer.isActive) {
                 remainingMs = durationMs - (System.currentTimeMillis() - startTime)
                 if (remainingMs <= 0) {
-                    isActive = false
+                    this@SleepTimer.isActive = false
                     remainingMs = 0
                     onFinish()
                     break

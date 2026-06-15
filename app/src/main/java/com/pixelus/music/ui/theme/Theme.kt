@@ -1,7 +1,6 @@
 package com.pixelus.music.ui.theme
 
 import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -42,11 +41,7 @@ fun PixelusMusicTheme(
             outline = DividerColor
         )
     } else if (Build.VERSION.SDK_INT >= 31) {
-        try {
-            dynamicDarkColorScheme(LocalContext.current)
-        } catch (_: Exception) {
-            DarkColorScheme
-        }
+        dynamicDarkColorScheme(LocalContext.current)
     } else {
         DarkColorScheme
     }

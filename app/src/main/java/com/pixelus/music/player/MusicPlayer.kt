@@ -2,6 +2,7 @@ package com.pixelus.music.player
 
 import android.content.Context
 import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
@@ -96,9 +97,13 @@ class MusicPlayer(context: Context) {
             MediaItem.Builder()
                 .setMediaId(song.id.toString())
                 .setUri(song.uri)
-                .setTitle(song.title)
-                .setArtist(song.artist)
-                .setAlbumTitle(song.album)
+                .setMediaMetadata(
+                    MediaMetadata.Builder()
+                        .setTitle(song.title)
+                        .setArtist(song.artist)
+                        .setAlbumTitle(song.album)
+                        .build()
+                )
                 .build()
         }
         exoPlayer.setMediaItems(mediaItems, startIndex, 0L)
