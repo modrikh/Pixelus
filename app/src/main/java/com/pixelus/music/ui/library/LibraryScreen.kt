@@ -4,17 +4,15 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MusicNote
-import androidx.compose.material.icons.filled.Pause
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.SkipNext
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -28,13 +26,13 @@ import com.pixelus.music.data.Song
 import com.pixelus.music.player.PlayerState
 import com.pixelus.music.ui.theme.*
 
-enum class LibraryTab(val label: String) {
-    SONGS("Songs"),
-    ALBUMS("Albums"),
-    ARTISTS("Artists"),
-    GENRES("Genres"),
-    PLAYLISTS("Playlists"),
-    FOLDERS("Folders")
+enum class LibraryTab(val label: String, val icon: ImageVector) {
+    SONGS("Songs", Icons.Outlined.MusicNote),
+    ALBUMS("Albums", Icons.Outlined.Album),
+    ARTISTS("Artists", Icons.Outlined.Person),
+    GENRES("Genres", Icons.Outlined.Category),
+    PLAYLISTS("Playlists", Icons.Outlined.QueueMusic),
+    FOLDERS("Folders", Icons.Outlined.Folder)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,6 +52,7 @@ fun LibraryScreen(
     onGenreClick: (Genre) -> Unit,
     onFolderClick: (MusicFolder) -> Unit,
     onSearchClick: () -> Unit,
+    onSettingsClick: () -> Unit = {},
     onPlayerBarClick: () -> Unit,
     onPlayPause: () -> Unit = {},
     onSkipNext: () -> Unit = {}
@@ -72,6 +71,9 @@ fun LibraryScreen(
                 actions = {
                     IconButton(onClick = onSearchClick) {
                         Icon(Icons.Default.Search, contentDescription = "Search")
+                    }
+                    IconButton(onClick = onSettingsClick) {
+                        Icon(Icons.Default.Settings, contentDescription = "Settings")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -108,11 +110,11 @@ fun LibraryScreen(
                         Tab(
                             selected = selectedTab == tab,
                             onClick = { selectedTab = tab },
-                            text = {
-                                Text(
-                                    text = tab.label,
-                                    fontWeight = if (selectedTab == tab) FontWeight.Bold else FontWeight.Normal,
-                                    fontSize = MaterialTheme.typography.labelLarge.fontSize
+                            icon = {
+                                Icon(
+                                    imageVector = tab.icon,
+                                    contentDescription = tab.label,
+                                    modifier = Modifier.size(22.dp)
                                 )
                             },
                             selectedContentColor = Primary,

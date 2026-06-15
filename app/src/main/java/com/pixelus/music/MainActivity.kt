@@ -18,6 +18,7 @@ import com.pixelus.music.ui.detail.DetailScreen
 import com.pixelus.music.ui.library.*
 import com.pixelus.music.ui.nowplaying.NowPlayingScreen
 import com.pixelus.music.ui.search.SearchScreen
+import com.pixelus.music.ui.settings.SettingsScreen
 import com.pixelus.music.ui.theme.PixelusMusicTheme
 
 class MainActivity : ComponentActivity() {
@@ -135,6 +136,7 @@ class MainActivity : ComponentActivity() {
                                 currentScreen = "detail"
                             },
                             onSearchClick = { currentScreen = "search" },
+                            onSettingsClick = { currentScreen = "settings" },
                             onPlayerBarClick = { currentScreen = "now_playing" },
                             onPlayPause = { player.togglePlayPause() },
                             onSkipNext = { player.skipToNext() }
@@ -155,6 +157,15 @@ class MainActivity : ComponentActivity() {
                                 onStopSleepTimer = { player.stopSleepTimer() }
                             )
                         }
+                    }
+                    currentScreen == "settings" -> {
+                        SettingsScreen(
+                            onBack = { currentScreen = "library" },
+                            sleepTimerActive = playerState.sleepTimerActive,
+                            sleepTimerRemaining = playerState.sleepTimerRemaining,
+                            onStartSleepTimer = { player.startSleepTimer(it) },
+                            onStopSleepTimer = { player.stopSleepTimer() }
+                        )
                     }
                     currentScreen == "search" -> {
                         SearchScreen(
