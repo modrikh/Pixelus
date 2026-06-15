@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pixelus Music</string>
+    <string name="songs">Songs</string>
+    <string name="albums">Albums</string>
+    <string name="artists">Artists</string>
+    <string name="genres">Genres</string>
+    <string name="folders">Folders</string>
+    <string name="playlists">Playlists</string>
+    <string name="search">Search</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="no_songs_found">No songs found</string>
+    <string name="widget_name">Pixelus Music</string>
+    <string name="notification_channel_name">Music Playback</string>
+    <string name="notification_channel_desc">Controls for music playback</string>
+</resources>
