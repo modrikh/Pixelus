@@ -81,8 +81,7 @@ dependencies {
     implementation("androidx.media3:media3-session:1.2.1")
 
     // Coil for album art
-    implementation("io.coil-kt:coil-compose:2.5.0")
-    implementation("io.coil-kt:coil-widgets:2.5.0")
+    implementation("io.coil-kt:coil-compose:2.6.0")
 
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.7.6")
