@@ -74,9 +74,32 @@ class MainActivity : ComponentActivity() {
                 suspend fun loadAll() {
                     allSongs = repository.loadAllSongs()
                     val ignoreShort = settings.ignoreShortTracks
-                    songs = if (ignoreShort) allSongs.filter { it.duration >= 30000 } else allSongs
-                    albums = repository.loadAlbums()
-                    artists = repository.loadArtists()
+                    songs = (if (ignoreShort) allSongs.filter { it.duration >= 30000 } else allSongs)
+                        .let { filterByFolderSettings(it, settings) }
+
+                    albums = songs.groupBy { it.albumId }.map { (albumId, albumSongs) ->
+                        val first = albumSongs.first()
+                        Album(
+                            id = albumId,
+                            title = first.album,
+                            artist = first.artist,
+                            songCount = albumSongs.size,
+                            year = albumSongs.maxOf { it.year },
+                            albumArtUri = first.albumArtUri,
+                            songs = albumSongs
+                        )
+                    }.sortedBy { it.title }
+
+                    artists = songs.groupBy { it.artist }.map { (name, artistSongs) ->
+                        val artistAlbums = artistSongs.distinctBy { it.albumId }
+                        Artist(
+                            id = artistSongs.first().id,
+                            name = name,
+                            albumCount = artistAlbums.size,
+                            songCount = artistSongs.size
+                        )
+                    }.sortedBy { it.name }
+
                     playlists = repository.loadPlaylists()
 
                     val genreMap = songs.groupBy { it.genre }
@@ -220,6 +243,25 @@ class MainActivity : ComponentActivity() {
             requestPermissionLauncher.launch(permission)
         }
     }
+}
 
+private fun filterByFolderSettings(songs: List<Song>, settings: PixelusSettings): List<Song> {
+    val isInclusive = settings.isScanModeInclusive.value
+    val musicFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).absolutePath
+    val scanMusicFolder = settings.scanMusicFolder.value
 
+    return if (isInclusive) {
+        val allowedFolders = settings.extraScanFolders.value.toMutableSet()
+        if (scanMusicFolder) allowedFolders.add(musicFolder)
+        if (allowedFolders.isEmpty()) return songs
+        songs.filter { song ->
+            allowedFolders.any { song.folderPath.startsWith(it) }
+        }
+    } else {
+        val excludedFolders = settings.excludedScanFolders.value
+        if (excludedFolders.isEmpty()) return songs
+        songs.filter { song ->
+            excludedFolders.none { song.folderPath.startsWith(it) }
+        }
+    }
 }

@@ -3,10 +3,12 @@ package com.pixelus.music.ui.settings
 import android.content.ContentValues
 import android.net.Uri
 import android.os.Environment
+import android.provider.DocumentsContract
 import android.provider.MediaStore
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.*
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -26,8 +28,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlin.math.abs
 import androidx.media3.common.util.UnstableApi
 import com.pixelus.music.PixelusApp
 import com.pixelus.music.data.Appearance
@@ -125,6 +130,8 @@ private fun MainSettingsPage(
     onNavigate: (SettingsPage) -> Unit,
     onBack: () -> Unit
 ) {
+    var searchQuery by remember { mutableStateOf("") }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -148,61 +155,112 @@ private fun MainSettingsPage(
                 .padding(padding)
                 .verticalScroll(rememberScrollState())
         ) {
-            SectionHeader("Playback")
-            SettingsItem(
-                icon = Icons.Default.Timer,
-                title = "Sleep Timer",
-                subtitle = if (sleepTimerActive) "${sleepTimerRemaining / 60000} min remaining"
-                          else "Set a timer to pause playback",
-                trailing = {
-                    SleepTimerChip(sleepTimerActive, onStartSleepTimer, onStopSleepTimer)
+            OutlinedTextField(
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
+                placeholder = { Text("Search settings...") },
+                leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search") },
+                trailingIcon = {
+                    if (searchQuery.isNotEmpty()) {
+                        IconButton(onClick = { searchQuery = "" }) {
+                            Icon(Icons.Default.Clear, contentDescription = "Clear")
+                        }
+                    }
+                },
+                singleLine = true,
+                shape = RoundedCornerShape(12.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = Primary,
+                    unfocusedBorderColor = SurfaceVariant,
+                    cursorColor = Primary
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+            )
+
+            val q = searchQuery.lowercase()
+            val showSection: (String, List<String>) -> Boolean = { _, keywords ->
+                q.isEmpty() || keywords.any { it.contains(q) }
+            }
+
+            if (showSection("Playback", listOf("playback", "sleep", "timer", "audio", "focus", "equalizer", "gapless"))) {
+                SectionHeader("Playback")
+                if (q.isEmpty() || "sleep timer".contains(q) || "${sleepTimerRemaining / 60000} min remaining".contains(q) || "set a timer".contains(q)) {
+                    SettingsItem(
+                        icon = Icons.Default.Timer,
+                        title = "Sleep Timer",
+                        subtitle = if (sleepTimerActive) "${sleepTimerRemaining / 60000} min remaining"
+                                  else "Set a timer to pause playback",
+                        trailing = {
+                            SleepTimerChip(sleepTimerActive, onStartSleepTimer, onStopSleepTimer)
+                        }
+                    )
                 }
-            )
-            SettingsDivider()
-            SettingsItem(
-                icon = Icons.Default.MusicNote,
-                title = "Playback",
-                subtitle = "Audio focus, equalizer, gapless",
-                onClick = { onNavigate(SettingsPage.PLAYBACK) }
-            )
+                if (q.isEmpty() || "playback".contains(q) || "audio focus".contains(q) || "equalizer".contains(q) || "gapless".contains(q)) {
+                    SettingsDivider()
+                    SettingsItem(
+                        icon = Icons.Default.MusicNote,
+                        title = "Playback",
+                        subtitle = "Audio focus, equalizer, gapless",
+                        onClick = { onNavigate(SettingsPage.PLAYBACK) }
+                    )
+                }
+            }
 
-            SectionHeader("Library")
-            SettingsItem(
-                icon = Icons.Default.Radar,
-                title = "Music Scan",
-                subtitle = "Scan folders, filter options",
-                onClick = { onNavigate(SettingsPage.MUSIC_SCAN) }
-            )
-            SettingsDivider()
-            SettingsItem(
-                icon = Icons.AutoMirrored.Filled.QueueMusic,
-                title = "Playlists",
-                subtitle = "Import, grid view",
-                onClick = { onNavigate(SettingsPage.PLAYLISTS) }
-            )
+            if (showSection("Library", listOf("library", "music scan", "playlists", "import", "folder", "scan"))) {
+                SectionHeader("Library")
+                if (q.isEmpty() || "music scan".contains(q) || "folder".contains(q) || "scan".contains(q) || "filter".contains(q)) {
+                    SettingsItem(
+                        icon = Icons.Default.Radar,
+                        title = "Music Scan",
+                        subtitle = "Scan folders, filter options",
+                        onClick = { onNavigate(SettingsPage.MUSIC_SCAN) }
+                    )
+                }
+                if (q.isEmpty() || "playlists".contains(q) || "import".contains(q) || "grid".contains(q)) {
+                    SettingsDivider()
+                    SettingsItem(
+                        icon = Icons.AutoMirrored.Filled.QueueMusic,
+                        title = "Playlists",
+                        subtitle = "Import, grid view",
+                        onClick = { onNavigate(SettingsPage.PLAYLISTS) }
+                    )
+                }
+            }
 
-            SectionHeader("Display")
-            SettingsItem(
-                icon = Icons.Default.Palette,
-                title = "Theme",
-                subtitle = "Appearance, colors, AMOLED mode",
-                onClick = { onNavigate(SettingsPage.THEME) }
-            )
-            SettingsDivider()
-            SettingsItem(
-                icon = Icons.Default.Lyrics,
-                title = "Lyrics",
-                subtitle = "Auto-fetch, display options",
-                onClick = { onNavigate(SettingsPage.LYRICS) }
-            )
+            if (showSection("Display", listOf("display", "theme", "lyrics", "appearance", "color", "amoled", "dark"))) {
+                SectionHeader("Display")
+                if (q.isEmpty() || "theme".contains(q) || "appearance".contains(q) || "color".contains(q) || "amoled".contains(q) || "dark".contains(q)) {
+                    SettingsItem(
+                        icon = Icons.Default.Palette,
+                        title = "Theme",
+                        subtitle = "Appearance, colors, AMOLED mode",
+                        onClick = { onNavigate(SettingsPage.THEME) }
+                    )
+                }
+                if (q.isEmpty() || "lyrics".contains(q) || "auto-fetch".contains(q) || "lrclib".contains(q)) {
+                    SettingsDivider()
+                    SettingsItem(
+                        icon = Icons.Default.Lyrics,
+                        title = "Lyrics",
+                        subtitle = "Auto-fetch, display options",
+                        onClick = { onNavigate(SettingsPage.LYRICS) }
+                    )
+                }
+            }
 
-            SectionHeader("Info")
-            SettingsItem(
-                icon = Icons.Default.Info,
-                title = "About",
-                subtitle = "Version, source code, feedback",
-                onClick = { onNavigate(SettingsPage.ABOUT) }
-            )
+            if (showSection("Info", listOf("info", "about", "version", "source", "license"))) {
+                SectionHeader("Info")
+                if (q.isEmpty() || "about".contains(q) || "version".contains(q) || "source".contains(q) || "license".contains(q)) {
+                    SettingsItem(
+                        icon = Icons.Default.Info,
+                        title = "About",
+                        subtitle = "Version, source code, feedback",
+                        onClick = { onNavigate(SettingsPage.ABOUT) }
+                    )
+                }
+            }
 
             Spacer(modifier = Modifier.height(32.dp))
             Text(
@@ -278,6 +336,44 @@ private fun PlaybackSettingsPage(
                 val lowerLimit by equalizerController.lowerLevelLimit.collectAsState()
                 val upperLimit by equalizerController.upperLevelLimit.collectAsState()
 
+                // Visualizer bars
+                if (bandLevels != null && bandLevels!!.isNotEmpty() && upperLimit != lowerLimit) {
+                    val range = (upperLimit - lowerLimit).toFloat()
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(80.dp)
+                            .padding(horizontal = 8.dp)
+                    ) {
+                        Canvas(modifier = Modifier.fillMaxSize()) {
+                            val barCount = bandLevels!!.size
+                            val barSpacing = size.width / barCount
+                            val barWidth = barSpacing * 0.6f
+                            val midY = size.height / 2f
+                            val maxHeight = size.height * 0.9f
+
+                            bandLevels!!.forEachIndexed { index, level ->
+                                val fraction = (level - lowerLimit) / range
+                                val barHeight = (fraction - 0.5f) * 2f * maxHeight
+                                val x = index * barSpacing + (barSpacing - barWidth) / 2f
+
+                                drawRect(
+                                    color = if (level > 0) Primary else Primary.copy(alpha = 0.5f),
+                                    topLeft = Offset(
+                                        x,
+                                        midY - if (barHeight > 0) barHeight else 0f
+                                    ),
+                                    size = Size(
+                                        barWidth,
+                                        abs(barHeight).coerceAtLeast(2f)
+                                    )
+                                )
+                            }
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
+
                 bandLevels?.forEachIndexed { index, level ->
                     val freq = bandFreqs?.getOrNull(index) ?: "Band $index"
                     val displayValue = "${level / 100f} dB"
@@ -319,7 +415,21 @@ private fun MusicScanSettingsPage(
 ) {
     val scope = rememberCoroutineScope()
     var foldersWithAudio by remember { mutableStateOf<Set<String>>(emptySet()) }
-    var showScanDialog by remember { mutableStateOf(false) }
+
+    val folderPickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenDocumentTree()
+    ) { uri: Uri? ->
+        if (uri == null) return@rememberLauncherForActivityResult
+        val path = resolveTreeUriPath(uri) ?: return@rememberLauncherForActivityResult
+        val isInclusive = settings.isScanModeInclusive.value
+        if (isInclusive) {
+            val current = settings.extraScanFolders.value
+            settings.updateExtraScanFolders(current + path)
+        } else {
+            val current = settings.excludedScanFolders.value
+            settings.updateExcludedScanFolders(current + path)
+        }
+    }
 
     SettingsSubPage(
         title = "Music Scan",
@@ -368,7 +478,7 @@ private fun MusicScanSettingsPage(
             SettingsFolderList(
                 title = "Included Folders",
                 paths = extraFolders.toList(),
-                onPickFolder = { showScanDialog = true },
+                onPickFolder = { folderPickerLauncher.launch(null) },
                 onRemoveFolder = { settings.updateExtraScanFolders(extraFolders - it) },
                 availableOptions = foldersWithAudio.toList(),
                 onAddFolderFromOptions = { settings.updateExtraScanFolders(extraFolders + it) },
@@ -379,7 +489,7 @@ private fun MusicScanSettingsPage(
             SettingsFolderList(
                 title = "Excluded Folders",
                 paths = excludedFolders.toList(),
-                onPickFolder = { showScanDialog = true },
+                onPickFolder = { folderPickerLauncher.launch(null) },
                 onRemoveFolder = { settings.updateExcludedScanFolders(excludedFolders - it) },
                 availableOptions = foldersWithAudio.toList(),
                 onAddFolderFromOptions = { settings.updateExcludedScanFolders(excludedFolders + it) },
@@ -407,36 +517,22 @@ private fun MusicScanSettingsPage(
             buttonIcon = Icons.Default.Refresh,
             onButtonClick = { scope.launch { musicScanner.refreshMedia() } }
         )
+    }
+}
 
-        SettingIconButton(
-            icon = Icons.Default.FolderOpen,
-            title = "Scan Folder",
-            subtitle = "Scan a specific folder for audio files",
-            buttonIcon = Icons.Default.Radar,
-            onButtonClick = { showScanDialog = true }
-        )
-
-        if (showScanDialog) {
-            AlertDialog(
-                onDismissRequest = { showScanDialog = false },
-                title = { Text("Scan Folder") },
-                text = { Text("Folder scanning uses system picker or type a path.\nCurrently scans all configured folders via MediaStore.") },
-                confirmButton = {
-                    TextButton(onClick = {
-                        scope.launch {
-                            musicScanner.refreshMedia()
-                        }
-                        showScanDialog = false
-                    }) { Text("Scan Now") }
-                },
-                dismissButton = {
-                    TextButton(onClick = { showScanDialog = false }) { Text("Cancel") }
-                },
-                containerColor = Surface,
-                titleContentColor = OnSurface,
-                textContentColor = TextSecondary
-            )
-        }
+private fun resolveTreeUriPath(uri: Uri): String? {
+    val docId = try {
+        DocumentsContract.getTreeDocumentId(uri)
+    } catch (_: Exception) {
+        return null
+    }
+    val split = docId.split(":")
+    val volume = split.getOrNull(0) ?: return null
+    val path = split.drop(1).joinToString("/")
+    return if (volume == "primary") {
+        "/storage/emulated/0/$path"
+    } else {
+        "/storage/$volume/$path"
     }
 }
 
