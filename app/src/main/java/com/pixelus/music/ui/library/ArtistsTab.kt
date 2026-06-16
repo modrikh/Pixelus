@@ -4,9 +4,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -45,31 +47,40 @@ private fun ArtistItem(
     artist: Artist,
     onClick: () -> Unit
 ) {
-    Row(
+    Surface(
+        color = Surface,
+        shape = RoundedCornerShape(12.dp),
         modifier = Modifier
             .fillMaxWidth()
+            .padding(horizontal = 12.dp, vertical = 4.dp)
             .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 12.dp),
-        verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(
-            imageVector = Icons.Default.Person,
-            contentDescription = null,
-            modifier = Modifier.size(48.dp),
-            tint = TextSecondary
-        )
-
-        Spacer(modifier = Modifier.width(16.dp))
-
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = artist.name,
-                style = androidx.compose.material3.MaterialTheme.typography.bodyLarge
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                imageVector = Icons.Default.Person,
+                contentDescription = null,
+                modifier = Modifier.size(48.dp),
+                tint = TextSecondary
             )
-            Text(
-                text = "${artist.songCount} songs \u2022 ${artist.albumCount} albums",
-                style = androidx.compose.material3.MaterialTheme.typography.labelSmall
-            )
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = artist.name,
+                    style = androidx.compose.material3.MaterialTheme.typography.bodyLarge
+                )
+                Text(
+                    text = "${artist.songCount} songs \u2022 ${artist.albumCount} albums",
+                    style = androidx.compose.material3.MaterialTheme.typography.labelSmall,
+                    color = TextSecondary
+                )
+            }
         }
     }
 }

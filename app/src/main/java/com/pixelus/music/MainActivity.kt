@@ -5,10 +5,13 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.*
+import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.launch
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -36,7 +39,22 @@ class MainActivity : ComponentActivity() {
         requestAudioPermission()
 
         setContent {
-            PixelusMusicTheme {
+            val settings = PixelusApp.settings
+            val useAlbumArtColor by settings.useAlbumArtColor.collectAsStateWithLifecycle()
+            val appearance by settings.appearance.collectAsStateWithLifecycle()
+            val useDynamicColor by settings.useDynamicColor.collectAsStateWithLifecycle()
+            val amoledMode by settings.amoledDarkTheme.collectAsStateWithLifecycle()
+
+            var dominantColor by remember { mutableStateOf<Color?>(null) }
+            val effectiveDominantColor = if (useAlbumArtColor) dominantColor else null
+
+            PixelusMusicTheme(
+                dominantColor = effectiveDominantColor,
+                appearance = appearance,
+                useDynamicColor = useDynamicColor,
+                amoledDarkMode = amoledMode
+            ) {
+                var allSongs by remember { mutableStateOf(emptyList<Song>()) }
                 var songs by remember { mutableStateOf(emptyList<Song>()) }
                 var albums by remember { mutableStateOf(emptyList<Album>()) }
                 var artists by remember { mutableStateOf(emptyList<Artist>()) }
@@ -54,7 +72,9 @@ class MainActivity : ComponentActivity() {
                 val scope = rememberCoroutineScope()
 
                 suspend fun loadAll() {
-                    songs = repository.loadAllSongs()
+                    allSongs = repository.loadAllSongs()
+                    val ignoreShort = settings.ignoreShortTracks
+                    songs = if (ignoreShort) allSongs.filter { it.duration >= 30000 } else allSongs
                     albums = repository.loadAlbums()
                     artists = repository.loadArtists()
                     playlists = repository.loadPlaylists()
@@ -78,6 +98,7 @@ class MainActivity : ComponentActivity() {
 
                 when {
                     detailSongs.isNotEmpty() -> {
+                        BackHandler { detailSongs = emptyList(); currentScreen = "library" }
                         DetailScreen(
                             title = detailTitle,
                             subtitle = detailSubtitle,
@@ -143,6 +164,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                     currentScreen == "now_playing" -> {
+                        BackHandler { currentScreen = "library" }
                         if (playerState.currentSong != null) {
                             NowPlayingScreen(
                                 playerState = playerState,
@@ -153,21 +175,25 @@ class MainActivity : ComponentActivity() {
                                 onSeek = { player.seekTo(it) },
                                 onShuffle = { player.toggleShuffle() },
                                 onRepeat = { player.cycleRepeatMode() },
+                                onDominantColorChanged = { dominantColor = it },
                                 onStartSleepTimer = { player.startSleepTimer(it) },
                                 onStopSleepTimer = { player.stopSleepTimer() }
                             )
                         }
                     }
                     currentScreen == "settings" -> {
+                        BackHandler { currentScreen = "library" }
                         SettingsScreen(
                             onBack = { currentScreen = "library" },
                             sleepTimerActive = playerState.sleepTimerActive,
                             sleepTimerRemaining = playerState.sleepTimerRemaining,
                             onStartSleepTimer = { player.startSleepTimer(it) },
-                            onStopSleepTimer = { player.stopSleepTimer() }
+                            onStopSleepTimer = { player.stopSleepTimer() },
+                            songs = allSongs
                         )
                     }
                     currentScreen == "search" -> {
+                        BackHandler { currentScreen = "library" }
                         SearchScreen(
                             songs = songs,
                             onBack = { currentScreen = "library" },

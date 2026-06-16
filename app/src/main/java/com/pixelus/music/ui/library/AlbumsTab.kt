@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -55,38 +56,45 @@ private fun AlbumItem(
     album: Album,
     onClick: () -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick),
-        horizontalAlignment = Alignment.Start
+    Surface(
+        color = Surface,
+        shape = RoundedCornerShape(12.dp),
+        modifier = Modifier.clickable(onClick = onClick)
     ) {
-        AsyncImage(
-            model = album.albumArtUri,
-            contentDescription = album.title,
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(1f)
-                .clip(RoundedCornerShape(8.dp)),
-            contentScale = ContentScale.Crop,
-            error = painterResource(R.drawable.ic_music_note)
-        )
+                .padding(8.dp),
+            horizontalAlignment = Alignment.Start
+        ) {
+            AsyncImage(
+                model = album.albumArtUri,
+                contentDescription = album.title,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1f)
+                    .clip(RoundedCornerShape(8.dp)),
+                contentScale = ContentScale.Crop,
+                error = painterResource(R.drawable.ic_music_note)
+            )
 
-        Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-        Text(
-            text = album.title,
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Medium,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        )
+            Text(
+                text = album.title,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.Medium,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
 
-        Text(
-            text = "${album.artist} \u2022 ${album.songCount} songs",
-            style = MaterialTheme.typography.labelSmall,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        )
+            Text(
+                text = "${album.artist} \u2022 ${album.songCount} songs",
+                style = MaterialTheme.typography.labelSmall,
+                color = TextSecondary,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
     }
 }

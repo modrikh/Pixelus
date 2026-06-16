@@ -25,6 +25,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toBitmap
+import coil.Coil
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
@@ -44,6 +45,7 @@ fun NowPlayingScreen(
     onSeek: (Long) -> Unit,
     onShuffle: () -> Unit,
     onRepeat: () -> Unit,
+    onDominantColorChanged: (Color?) -> Unit = {},
     onStartSleepTimer: (Long) -> Unit = {},
     onStopSleepTimer: () -> Unit = {}
 ) {
@@ -51,8 +53,24 @@ fun NowPlayingScreen(
     var showLyrics by remember { mutableStateOf(false) }
     val hasLyrics = playerState.lyrics != null || playerState.lyricsLoading
 
-    val dominantColor = remember(song.albumArtUri) {
-        mutableStateOf<Color?>(null)
+    val context = LocalContext.current
+    LaunchedEffect(song.albumArtUri) {
+        onDominantColorChanged(null)
+        song.albumArtUri?.let { uri ->
+            try {
+                val request = ImageRequest.Builder(context)
+                    .data(uri)
+                    .size(128)
+                    .build()
+                val result = Coil.imageLoader(context).execute(request)
+                val bitmap = (result.drawable as? android.graphics.drawable.BitmapDrawable)?.bitmap
+                if (bitmap != null) {
+                    onDominantColorChanged(extractDominantColor(bitmap))
+                }
+            } catch (_: Exception) {
+                onDominantColorChanged(null)
+            }
+        }
     }
 
     Box(
@@ -69,7 +87,7 @@ fun NowPlayingScreen(
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxSize()
-                    .blur(50.dp),
+                    .blur(60.dp),
                 contentScale = ContentScale.Crop
             )
             Box(
@@ -78,8 +96,8 @@ fun NowPlayingScreen(
                     .background(
                         Brush.verticalGradient(
                             colors = listOf(
-                                Color.Black.copy(alpha = 0.6f),
-                                Background,
+                                Color.Black.copy(alpha = 0.5f),
+                                Color.Black.copy(alpha = 0.85f),
                                 Background
                             )
                         )
@@ -104,23 +122,23 @@ fun NowPlayingScreen(
                 onStopSleepTimer = onStopSleepTimer
             )
 
-            Spacer(modifier = Modifier.weight(0.1f))
-
             if (showLyrics) {
-                LyricsSection(
-                    lyrics = playerState.lyrics,
-                    isLoading = playerState.lyricsLoading,
-                    currentPosition = playerState.currentPosition
-                )
+                Box(modifier = Modifier.weight(1f)) {
+                    LyricsSection(
+                        lyrics = playerState.lyrics,
+                        isLoading = playerState.lyricsLoading,
+                        currentPosition = playerState.currentPosition
+                    )
+                }
             } else {
+                Spacer(modifier = Modifier.weight(0.2f))
                 AlbumArtSection(albumArtUri = song.albumArtUri)
+                Spacer(modifier = Modifier.weight(0.1f))
             }
-
-            Spacer(modifier = Modifier.weight(0.1f))
 
             SongInfoSection(title = song.title, artist = song.artist, album = song.album)
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             SeekBarSection(
                 currentPosition = playerState.currentPosition,
@@ -128,7 +146,7 @@ fun NowPlayingScreen(
                 onSeek = onSeek
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             PlaybackControls(
                 isPlaying = playerState.isPlaying,
@@ -141,7 +159,7 @@ fun NowPlayingScreen(
                 onRepeat = onRepeat
             )
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(24.dp))
         }
     }
 }
@@ -250,7 +268,7 @@ private fun AlbumArtSection(albumArtUri: Uri?) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 32.dp),
+            .padding(horizontal = 48.dp),
         contentAlignment = Alignment.Center
     ) {
         AsyncImage(
@@ -259,7 +277,7 @@ private fun AlbumArtSection(albumArtUri: Uri?) {
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(1f)
-                .clip(RoundedCornerShape(16.dp)),
+                .clip(RoundedCornerShape(24.dp)),
             contentScale = ContentScale.Crop
         )
     }
@@ -273,9 +291,8 @@ private fun LyricsSection(
 ) {
     Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 32.dp)
-            .aspectRatio(1f),
+            .fillMaxSize()
+            .padding(horizontal = 24.dp),
         contentAlignment = Alignment.Center
     ) {
         when {
@@ -289,6 +306,7 @@ private fun LyricsSection(
                 Text(
                     text = "No lyrics available",
                     style = MaterialTheme.typography.bodyMedium,
+                    color = TextSecondary,
                     textAlign = TextAlign.Center
                 )
             }

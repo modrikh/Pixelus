@@ -17,6 +17,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.pixelus.music.PixelusApp
 import com.pixelus.music.data.Album
 import com.pixelus.music.data.Artist
 import com.pixelus.music.data.Genre
@@ -58,6 +59,7 @@ fun LibraryScreen(
     onSkipNext: () -> Unit = {}
 ) {
     var selectedTab by remember { mutableStateOf(LibraryTab.SONGS) }
+    val gridPlaylists by PixelusApp.settings.gridPlaylists.collectAsState()
 
     Scaffold(
         topBar = {
@@ -136,7 +138,7 @@ fun LibraryScreen(
                 LibraryTab.ALBUMS -> AlbumsTab(albums = albums, onAlbumClick = onAlbumClick)
                 LibraryTab.ARTISTS -> ArtistsTab(artists = artists, onArtistClick = onArtistClick)
                 LibraryTab.GENRES -> GenresTab(genres = genres, onGenreClick = onGenreClick)
-                LibraryTab.PLAYLISTS -> PlaylistsTab(playlists = playlists, onPlaylistClick = onPlaylistClick)
+                LibraryTab.PLAYLISTS -> PlaylistsTab(playlists = playlists, onPlaylistClick = onPlaylistClick, gridView = gridPlaylists)
                 LibraryTab.FOLDERS -> FoldersTab(folders = folders, onFolderClick = onFolderClick)
             }
         }
@@ -151,9 +153,12 @@ fun PlayerBar(
     onSkipNext: () -> Unit = {}
 ) {
     Surface(
-        onClick = onClick,
         color = Surface,
-        modifier = Modifier.fillMaxWidth()
+        shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
+        tonalElevation = 4.dp,
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
     ) {
         Row(
             modifier = Modifier
@@ -168,7 +173,7 @@ fun PlayerBar(
                     contentDescription = null,
                     modifier = Modifier
                         .size(42.dp)
-                        .clip(RoundedCornerShape(4.dp)),
+                        .clip(RoundedCornerShape(8.dp)),
                     contentScale = ContentScale.Crop
                 )
             } else {
@@ -192,6 +197,7 @@ fun PlayerBar(
                 Text(
                     text = playerState.currentSong?.artist ?: "",
                     style = MaterialTheme.typography.labelSmall,
+                    color = TextSecondary,
                     maxLines = 1
                 )
             }

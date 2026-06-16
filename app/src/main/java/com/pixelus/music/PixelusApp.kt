@@ -4,6 +4,8 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
+import com.pixelus.music.data.MusicScanner
+import com.pixelus.music.data.PixelusSettings
 import com.pixelus.music.player.MusicService
 import com.pixelus.music.widget.MusicServiceHolder
 
@@ -11,9 +13,11 @@ class PixelusApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        settings = PixelusSettings(this)
         createNotificationChannel()
         MusicService.initPlayer(this)
         MusicServiceHolder.init(this, MusicService.player)
+        musicScanner = MusicScanner(this, settings)
     }
 
     private fun createNotificationChannel() {
@@ -33,5 +37,9 @@ class PixelusApp : Application() {
 
     companion object {
         const val CHANNEL_ID = "music_playback"
+        lateinit var settings: PixelusSettings
+            private set
+        lateinit var musicScanner: MusicScanner
+            private set
     }
 }

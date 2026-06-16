@@ -10,6 +10,12 @@ import java.io.File
 
 class LyricsRepository(private val context: Context) {
 
+    private var autoFetch: Boolean = true
+
+    fun setAutoFetch(enabled: Boolean) {
+        autoFetch = enabled
+    }
+
     suspend fun loadLyrics(song: Song): Lyrics? = withContext(Dispatchers.IO) {
         val embedded = extractEmbedded(song)
         if (embedded != null) return@withContext embedded
@@ -20,14 +26,18 @@ class LyricsRepository(private val context: Context) {
         val txt = loadSidecar(song, "txt")
         if (txt != null) return@withContext txt
 
-        try {
-            LrclibClient.fetchLyrics(
-                title = song.title,
-                artist = song.artist,
-                album = song.album,
-                durationMs = song.duration
-            )
-        } catch (_: Exception) {
+        if (autoFetch) {
+            try {
+                LrclibClient.fetchLyrics(
+                    title = song.title,
+                    artist = song.artist,
+                    album = song.album,
+                    durationMs = song.duration
+                )
+            } catch (_: Exception) {
+                null
+            }
+        } else {
             null
         }
     }

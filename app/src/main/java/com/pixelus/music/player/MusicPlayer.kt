@@ -6,6 +6,7 @@ import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
+import com.pixelus.music.PixelusApp
 import com.pixelus.music.data.LyricsRepository
 import com.pixelus.music.data.Song
 import com.pixelus.music.widget.MusicServiceHolder
@@ -26,7 +27,9 @@ class MusicPlayer(context: Context) {
     val state: StateFlow<PlayerState> = _state.asStateFlow()
 
     private var songList: List<Song> = emptyList()
-    private val lyricsRepo = LyricsRepository(context)
+    private val lyricsRepo = LyricsRepository(context).apply {
+        setAutoFetch(try { PixelusApp.settings.lyricsAutoFetch } catch (_: Exception) { true })
+    }
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     val sleepTimer = SleepTimer()
 
@@ -160,12 +163,15 @@ class MusicPlayer(context: Context) {
         val currentItemIndex = exoPlayer.currentMediaItemIndex
         val currentPosition = exoPlayer.currentPosition
 
-        if (currentPosition > 3000 || currentItemIndex == 0) {
+        val jumpToBeginning = try { PixelusApp.settings.jumpToBeginning } catch (_: Exception) { true }
+        if (jumpToBeginning && currentPosition > 3000 || currentItemIndex == 0) {
             exoPlayer.seekTo(currentItemIndex, 0)
         } else {
             exoPlayer.seekToPreviousMediaItem()
         }
     }
+
+    fun getAudioSessionId(): Int = exoPlayer.audioSessionId
 
     fun toggleShuffle() {
         val newShuffle = !_state.value.shuffleEnabled

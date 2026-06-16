@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#121212</color>
+    <color name="on_background">#FFFFFF</color>
+    <color name="on_primary">#000000</color>
+    <color name="on_secondary">#000000</color>
+    <color name="on_surface">#FFFFFF</color>
+    <color name="primary">#1DB954</color>
+    <color name="primary_variant">#169C46</color>
+    <color name="secondary">#FFFFFF</color>
+    <color name="surface">#1E1E1E</color>
+    <color name="text_secondary">#B3B3B3</color>
+    <color name="widget_background">#1A1A2E</color>
+    <string name="albums">Albums</string>
+    <string name="app_name">Pixelus Music</string>
+    <string name="artists">Artists</string>
+    <string name="folders">Folders</string>
+    <string name="genres">Genres</string>
+    <string name="no_songs_found">No songs found</string>
+    <string name="notification_channel_desc">Controls for music playback</string>
+    <string name="notification_channel_name">Music Playback</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="playlists">Playlists</string>
+    <string name="search">Search</string>
+    <string name="songs">Songs</string>
+    <string name="widget_name">Pixelus Music</string>
+    <style name="Theme.PixelusMusic" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:navigationBarColor">@color/background</item>
+        <item name="android:windowBackground">@color/background</item>
+    </style>
+</resources>

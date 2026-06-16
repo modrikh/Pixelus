@@ -1,0 +1,451 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:2:1-52:12
+INJECTED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:2:1-52:12
+INJECTED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:2:1-52:12
+INJECTED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:2:1-52:12
+MERGED from [androidx.media3:media3-session:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/7e6ae57e93a47c861deca541bf22b341/transformed/media3-session-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media3:media3-extractor:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/5a832cf68ab96e7f9c481c3a95a0630c/transformed/media3-extractor-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media3:media3-container:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/ee26fcd9f78389be0288b47c347ae70c/transformed/media3-container-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media3:media3-datasource:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/aa512f70296d78980f7636b44d4e9ea1/transformed/media3-datasource-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media3:media3-decoder:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/26441ce18bd5c15985ae222dd2ff7d73/transformed/media3-decoder-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media3:media3-database:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/9e9f2f3175baf9ab222ccaf31af7d795/transformed/media3-database-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media3:media3-common:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/4159e396537536880e3520afe0047e71/transformed/media3-common-1.2.1/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.media3:media3-exoplayer:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/df2a3fefb164b746b5e398c0687db566/transformed/media3-exoplayer-1.2.1/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.media:media:1.6.0] /home/pivo/.gradle/caches/8.13/transforms/3bbaafe3034cd98751d09fdc8bfb093b/transformed/media-1.6.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.palette:palette-ktx:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/aeca3d28cd7ae1106f9903d286879382/transformed/palette-ktx-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.palette:palette:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/c910235bc2d40fb811c36bb902e7aca9/transformed/palette-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-common:2.7.6] /home/pivo/.gradle/caches/8.13/transforms/9a0fbfbf165172196e5ab61663d770d8/transformed/navigation-common-2.7.6/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-runtime:2.7.6] /home/pivo/.gradle/caches/8.13/transforms/8215256452f84930996948b065399317/transformed/navigation-runtime-2.7.6/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-common-ktx:2.7.6] /home/pivo/.gradle/caches/8.13/transforms/3ebca22dddc3ec5536fdf6fbda5106d6/transformed/navigation-common-ktx-2.7.6/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.navigation:navigation-runtime-ktx:2.7.6] /home/pivo/.gradle/caches/8.13/transforms/651f68eb1c4ebcbd96dd2f49831d337e/transformed/navigation-runtime-ktx-2.7.6/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.navigation:navigation-compose:2.7.6] /home/pivo/.gradle/caches/8.13/transforms/9eed91f492f01d138edeb04fb97c4616/transformed/navigation-compose-2.7.6/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.material3:material3:1.1.2] /home/pivo/.gradle/caches/8.13/transforms/13e546b10eb499b2f0a80b7dc43994eb/transformed/material3-1.1.2/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity-compose:1.8.2] /home/pivo/.gradle/caches/8.13/transforms/6bb029f986142e6cc3f220f313818b11/transformed/activity-compose-1.8.2/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/03b52510cbc33fdb6cf3ed30a99eeee7/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/3e8b15dded865a703e62909855348d0a/transformed/loader-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [io.coil-kt:coil-compose:2.6.0] /home/pivo/.gradle/caches/8.13/transforms/980dd4eb513e6236cbe2e0ea8b88901b/transformed/coil-compose-2.6.0/AndroidManifest.xml:2:1-7:12
+MERGED from [io.coil-kt:coil-compose-base:2.6.0] /home/pivo/.gradle/caches/8.13/transforms/230d985c2020243667572f07047e3d8c/transformed/coil-compose-base-2.6.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.material:material-icons-core-android:1.6.0] /home/pivo/.gradle/caches/8.13/transforms/af3e4a542271394337f4983b5e01fa9d/transformed/material-icons-core-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.material:material-icons-extended-android:1.6.0] /home/pivo/.gradle/caches/8.13/transforms/e7ce10773bbc0c747f13aa9ef3011424/transformed/material-icons-extended-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.material:material-ripple-android:1.6.0] /home/pivo/.gradle/caches/8.13/transforms/bd382a5b0d4852cf146ac25b409dbd00/transformed/material-ripple-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.animation:animation-core-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/7eeaf92b0ef44431c2dbe1a9b6bbb7c8/transformed/animation-core-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.animation:animation-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/bd8f100d1ca57f66c52929f259836257/transformed/animation-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.foundation:foundation-layout-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/4f12b0203df821e50f59f3ff448dde75/transformed/foundation-layout-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.foundation:foundation-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/b1a875d3365ce8340379f4bf40ba20be/transformed/foundation-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-tooling-preview-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/a36f208ea6589a4c28fdab63be1821a6/transformed/ui-tooling-preview-release/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.compose.ui:ui-unit-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/50416bda075b3dd8a2d3eb28c6471f69/transformed/ui-unit-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-graphics-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/6a7d77619a1a7d48ba25409e70423973/transformed/ui-graphics-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-geometry-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/70af22d8093d9a80ef30ff624c106966/transformed/ui-geometry-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-util-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/5bda80dfc09868555d5059f2dbe04494/transformed/ui-util-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-text-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/ba44f804f507e70becce5080b2b16b55/transformed/ui-text-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.emoji2:emoji2:1.3.0] /home/pivo/.gradle/caches/8.13/transforms/37b3496af40f8d96af98c210f0996b9c/transformed/emoji2-1.3.0/AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/1572f2a1f6c5e33010377b0172e641e0/transformed/lifecycle-livedata-core-ktx-2.7.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/b352b442eb43c81e0f2616e127d87e22/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/648bd17f7494b20d57d0d643e01eb94e/transformed/lifecycle-livedata-2.7.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/54962edd8f6422e4e0d73121d4f524d2/transformed/lifecycle-livedata-core-2.7.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/aa1016c3c6db3d72e2416e5752273cba/transformed/lifecycle-viewmodel-savedstate-2.7.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/a6bf8b89aaf17f85814f63729e41e63a/transformed/lifecycle-viewmodel-ktx-2.7.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/ab68361e2717327c183e5193ece217af/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.savedstate:savedstate:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/1dd35eb66131886825ad9a7ae81bb4dd/transformed/savedstate-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/08e724883a66fb09787338aaeb17fb47/transformed/lifecycle-viewmodel-compose-2.7.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/447f9dae34e1e98350730e3d89b1a2a8/transformed/lifecycle-viewmodel-2.7.0/AndroidManifest.xml:17:1-22:12
+MERGED from [io.coil-kt:coil:2.6.0] /home/pivo/.gradle/caches/8.13/transforms/23a4aa0efd17a884483ddc557e85946f/transformed/coil-2.6.0/AndroidManifest.xml:2:1-7:12
+MERGED from [io.coil-kt:coil-base:2.6.0] /home/pivo/.gradle/caches/8.13/transforms/e7b663f124940d709076afc80772c029/transformed/coil-base-2.6.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/d43986219cc2b51bceec8d8e5d61f640/transformed/lifecycle-runtime-2.7.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-service:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/82f69803f35f18de730822534199c77f/transformed/lifecycle-service-2.7.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/5dd46a110f20a54db537326f642e13e2/transformed/lifecycle-runtime-ktx-2.7.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-compose:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/71ff27641f122412dced0cce50bcde38/transformed/lifecycle-runtime-compose-2.7.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.accompanist:accompanist-drawablepainter:0.32.0] /home/pivo/.gradle/caches/8.13/transforms/a38c1742715edc72c6eaadc5e8cdf462/transformed/accompanist-drawablepainter-0.32.0/AndroidManifest.xml:17:1-23:12
+MERGED from [androidx.compose.ui:ui-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/7a61c68b4117786bf24e30c7a60d879f/transformed/ui-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.activity:activity-ktx:1.8.2] /home/pivo/.gradle/caches/8.13/transforms/4e7537d2826d0beb1c5d5657c9434285/transformed/activity-ktx-1.8.2/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.activity:activity:1.8.2] /home/pivo/.gradle/caches/8.13/transforms/48b0f65ee222b7cc4349cdccfd34f02a/transformed/activity-1.8.2/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/0d26655927030a108e49647c6749eb93/transformed/appcompat-resources-1.6.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /home/pivo/.gradle/caches/8.13/transforms/f707d72d356235946b23fd8465f9d301/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /home/pivo/.gradle/caches/8.13/transforms/7031beaa385502b409e549c2ab50405e/transformed/vectordrawable-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.autofill:autofill:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/ce9bcf472c1678b768825d3140774ff1/transformed/autofill-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.core:core:1.12.0] /home/pivo/.gradle/caches/8.13/transforms/bf38a62e14ffd4d412d0e5629007f6bb/transformed/core-1.12.0/AndroidManifest.xml:17:1-30:12
+MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/66b178d21d9e0ed98fe673aafe1f29ee/transformed/customview-poolingcontainer-1.0.0/AndroidManifest.xml:17:1-23:12
+MERGED from [androidx.core:core-ktx:1.12.0] /home/pivo/.gradle/caches/8.13/transforms/09bb58cd5c191aac93468b98c46efcf7/transformed/core-ktx-1.12.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.runtime:runtime-saveable-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/e8279119ddfafd2f68c7536efc263be0/transformed/runtime-saveable-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.runtime:runtime-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/73d89a216507c287310ecc78a1236906/transformed/runtime-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.annotation:annotation-experimental:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/2bc28138012c1f44fdcc31550837435f/transformed/annotation-experimental-1.3.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/pivo/.gradle/caches/8.13/transforms/6b6d4dce192fa07998fbe4d195817535/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/23a85a9080701e41f5152918e9e5b2b8/transformed/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /home/pivo/.gradle/caches/8.13/transforms/180d3ca291fc7987ed5378373cd38b40/transformed/core-runtime-2.2.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:17:1-55:12
+MERGED from [androidx.startup:startup-runtime:1.1.1] /home/pivo/.gradle/caches/8.13/transforms/392fbf0dc135c8dba57d84582820365e/transformed/startup-runtime-1.1.1/AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.tracing:tracing:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/86a342216c7c9ab2cabd346edbf90fdf/transformed/tracing-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.exifinterface:exifinterface:1.3.7] /home/pivo/.gradle/caches/8.13/transforms/11b780c830337b0dc22802d43ee73ae3/transformed/exifinterface-1.3.7/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/c4171eb553b2e75e05e44ba2a2356f82/transformed/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/a7229e2c8b1d423251891962ec3bbe02/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/6431ea2ce0f890c1fdfc5e50f684f509/transformed/print-1.0.0/AndroidManifest.xml:17:1-22:12
+	package
+		INJECTED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:4:5-5:38
+	android:maxSdkVersion
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:5:9-35
+	android:name
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:4:22-77
+uses-permission#android.permission.READ_MEDIA_AUDIO
+ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:6:5-75
+	android:name
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:6:22-72
+uses-permission#android.permission.POST_NOTIFICATIONS
+ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:7:5-77
+	android:name
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:7:22-74
+uses-permission#android.permission.FOREGROUND_SERVICE
+ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:8:5-77
+	android:name
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:8:22-74
+uses-permission#android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK
+ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:9:5-92
+	android:name
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:9:22-89
+application
+ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:11:5-50:19
+INJECTED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:11:5-50:19
+MERGED from [androidx.emoji2:emoji2:1.3.0] /home/pivo/.gradle/caches/8.13/transforms/37b3496af40f8d96af98c210f0996b9c/transformed/emoji2-1.3.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.emoji2:emoji2:1.3.0] /home/pivo/.gradle/caches/8.13/transforms/37b3496af40f8d96af98c210f0996b9c/transformed/emoji2-1.3.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/b352b442eb43c81e0f2616e127d87e22/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/b352b442eb43c81e0f2616e127d87e22/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.core:core:1.12.0] /home/pivo/.gradle/caches/8.13/transforms/bf38a62e14ffd4d412d0e5629007f6bb/transformed/core-1.12.0/AndroidManifest.xml:28:5-89
+MERGED from [androidx.core:core:1.12.0] /home/pivo/.gradle/caches/8.13/transforms/bf38a62e14ffd4d412d0e5629007f6bb/transformed/core-1.12.0/AndroidManifest.xml:28:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/pivo/.gradle/caches/8.13/transforms/6b6d4dce192fa07998fbe4d195817535/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/pivo/.gradle/caches/8.13/transforms/6b6d4dce192fa07998fbe4d195817535/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] /home/pivo/.gradle/caches/8.13/transforms/392fbf0dc135c8dba57d84582820365e/transformed/startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] /home/pivo/.gradle/caches/8.13/transforms/392fbf0dc135c8dba57d84582820365e/transformed/startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
+	android:extractNativeLibs
+		INJECTED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.12.0] /home/pivo/.gradle/caches/8.13/transforms/bf38a62e14ffd4d412d0e5629007f6bb/transformed/core-1.12.0/AndroidManifest.xml:28:18-86
+	android:supportsRtl
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:17:9-35
+	android:label
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:15:9-41
+	android:roundIcon
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:16:9-54
+	android:icon
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:14:9-43
+	android:allowBackup
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:13:9-35
+	android:theme
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:18:9-50
+	android:name
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:12:9-35
+activity#com.pixelus.music.MainActivity
+ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:20:9-28:20
+	android:exported
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:22:13-36
+	android:theme
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:23:13-54
+	android:name
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:21:13-41
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:24:13-27:29
+action#android.intent.action.MAIN
+ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:25:17-69
+	android:name
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:25:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:26:17-77
+	android:name
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:26:27-74
+service#com.pixelus.music.player.MusicService
+ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:30:9-37:19
+	android:exported
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:32:13-37
+	android:foregroundServiceType
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:33:13-58
+	android:name
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:31:13-48
+intent-filter#action:name:androidx.media3.session.MediaSessionService
+ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:34:13-36:29
+action#androidx.media3.session.MediaSessionService
+ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:35:17-86
+	android:name
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:35:25-83
+receiver#com.pixelus.music.widget.MusicWidget
+ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:39:9-48:20
+	android:exported
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:41:13-36
+	android:name
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:40:13-47
+intent-filter#action:name:android.appwidget.action.APPWIDGET_UPDATE
+ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:42:13-44:29
+action#android.appwidget.action.APPWIDGET_UPDATE
+ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:43:17-84
+	android:name
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:43:25-81
+meta-data#android.appwidget.provider
+ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:45:13-47:61
+	android:resource
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:47:17-58
+	android:name
+		ADDED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml:46:17-58
+uses-sdk
+INJECTED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml
+INJECTED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml
+MERGED from [androidx.media3:media3-session:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/7e6ae57e93a47c861deca541bf22b341/transformed/media3-session-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-session:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/7e6ae57e93a47c861deca541bf22b341/transformed/media3-session-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-extractor:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/5a832cf68ab96e7f9c481c3a95a0630c/transformed/media3-extractor-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-extractor:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/5a832cf68ab96e7f9c481c3a95a0630c/transformed/media3-extractor-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-container:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/ee26fcd9f78389be0288b47c347ae70c/transformed/media3-container-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-container:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/ee26fcd9f78389be0288b47c347ae70c/transformed/media3-container-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-datasource:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/aa512f70296d78980f7636b44d4e9ea1/transformed/media3-datasource-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-datasource:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/aa512f70296d78980f7636b44d4e9ea1/transformed/media3-datasource-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-decoder:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/26441ce18bd5c15985ae222dd2ff7d73/transformed/media3-decoder-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-decoder:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/26441ce18bd5c15985ae222dd2ff7d73/transformed/media3-decoder-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-database:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/9e9f2f3175baf9ab222ccaf31af7d795/transformed/media3-database-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-database:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/9e9f2f3175baf9ab222ccaf31af7d795/transformed/media3-database-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-common:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/4159e396537536880e3520afe0047e71/transformed/media3-common-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-common:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/4159e396537536880e3520afe0047e71/transformed/media3-common-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-exoplayer:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/df2a3fefb164b746b5e398c0687db566/transformed/media3-exoplayer-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-exoplayer:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/df2a3fefb164b746b5e398c0687db566/transformed/media3-exoplayer-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.6.0] /home/pivo/.gradle/caches/8.13/transforms/3bbaafe3034cd98751d09fdc8bfb093b/transformed/media-1.6.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.media:media:1.6.0] /home/pivo/.gradle/caches/8.13/transforms/3bbaafe3034cd98751d09fdc8bfb093b/transformed/media-1.6.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.palette:palette-ktx:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/aeca3d28cd7ae1106f9903d286879382/transformed/palette-ktx-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.palette:palette-ktx:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/aeca3d28cd7ae1106f9903d286879382/transformed/palette-ktx-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.palette:palette:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/c910235bc2d40fb811c36bb902e7aca9/transformed/palette-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.palette:palette:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/c910235bc2d40fb811c36bb902e7aca9/transformed/palette-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-common:2.7.6] /home/pivo/.gradle/caches/8.13/transforms/9a0fbfbf165172196e5ab61663d770d8/transformed/navigation-common-2.7.6/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-common:2.7.6] /home/pivo/.gradle/caches/8.13/transforms/9a0fbfbf165172196e5ab61663d770d8/transformed/navigation-common-2.7.6/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-runtime:2.7.6] /home/pivo/.gradle/caches/8.13/transforms/8215256452f84930996948b065399317/transformed/navigation-runtime-2.7.6/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-runtime:2.7.6] /home/pivo/.gradle/caches/8.13/transforms/8215256452f84930996948b065399317/transformed/navigation-runtime-2.7.6/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-common-ktx:2.7.6] /home/pivo/.gradle/caches/8.13/transforms/3ebca22dddc3ec5536fdf6fbda5106d6/transformed/navigation-common-ktx-2.7.6/AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-common-ktx:2.7.6] /home/pivo/.gradle/caches/8.13/transforms/3ebca22dddc3ec5536fdf6fbda5106d6/transformed/navigation-common-ktx-2.7.6/AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-runtime-ktx:2.7.6] /home/pivo/.gradle/caches/8.13/transforms/651f68eb1c4ebcbd96dd2f49831d337e/transformed/navigation-runtime-ktx-2.7.6/AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-runtime-ktx:2.7.6] /home/pivo/.gradle/caches/8.13/transforms/651f68eb1c4ebcbd96dd2f49831d337e/transformed/navigation-runtime-ktx-2.7.6/AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-compose:2.7.6] /home/pivo/.gradle/caches/8.13/transforms/9eed91f492f01d138edeb04fb97c4616/transformed/navigation-compose-2.7.6/AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-compose:2.7.6] /home/pivo/.gradle/caches/8.13/transforms/9eed91f492f01d138edeb04fb97c4616/transformed/navigation-compose-2.7.6/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material3:material3:1.1.2] /home/pivo/.gradle/caches/8.13/transforms/13e546b10eb499b2f0a80b7dc43994eb/transformed/material3-1.1.2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.material3:material3:1.1.2] /home/pivo/.gradle/caches/8.13/transforms/13e546b10eb499b2f0a80b7dc43994eb/transformed/material3-1.1.2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity-compose:1.8.2] /home/pivo/.gradle/caches/8.13/transforms/6bb029f986142e6cc3f220f313818b11/transformed/activity-compose-1.8.2/AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-compose:1.8.2] /home/pivo/.gradle/caches/8.13/transforms/6bb029f986142e6cc3f220f313818b11/transformed/activity-compose-1.8.2/AndroidManifest.xml:5:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/03b52510cbc33fdb6cf3ed30a99eeee7/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/03b52510cbc33fdb6cf3ed30a99eeee7/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/3e8b15dded865a703e62909855348d0a/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/3e8b15dded865a703e62909855348d0a/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [io.coil-kt:coil-compose:2.6.0] /home/pivo/.gradle/caches/8.13/transforms/980dd4eb513e6236cbe2e0ea8b88901b/transformed/coil-compose-2.6.0/AndroidManifest.xml:5:5-44
+MERGED from [io.coil-kt:coil-compose:2.6.0] /home/pivo/.gradle/caches/8.13/transforms/980dd4eb513e6236cbe2e0ea8b88901b/transformed/coil-compose-2.6.0/AndroidManifest.xml:5:5-44
+MERGED from [io.coil-kt:coil-compose-base:2.6.0] /home/pivo/.gradle/caches/8.13/transforms/230d985c2020243667572f07047e3d8c/transformed/coil-compose-base-2.6.0/AndroidManifest.xml:5:5-44
+MERGED from [io.coil-kt:coil-compose-base:2.6.0] /home/pivo/.gradle/caches/8.13/transforms/230d985c2020243667572f07047e3d8c/transformed/coil-compose-base-2.6.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-core-android:1.6.0] /home/pivo/.gradle/caches/8.13/transforms/af3e4a542271394337f4983b5e01fa9d/transformed/material-icons-core-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-core-android:1.6.0] /home/pivo/.gradle/caches/8.13/transforms/af3e4a542271394337f4983b5e01fa9d/transformed/material-icons-core-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-extended-android:1.6.0] /home/pivo/.gradle/caches/8.13/transforms/e7ce10773bbc0c747f13aa9ef3011424/transformed/material-icons-extended-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-extended-android:1.6.0] /home/pivo/.gradle/caches/8.13/transforms/e7ce10773bbc0c747f13aa9ef3011424/transformed/material-icons-extended-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-ripple-android:1.6.0] /home/pivo/.gradle/caches/8.13/transforms/bd382a5b0d4852cf146ac25b409dbd00/transformed/material-ripple-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-ripple-android:1.6.0] /home/pivo/.gradle/caches/8.13/transforms/bd382a5b0d4852cf146ac25b409dbd00/transformed/material-ripple-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-core-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/7eeaf92b0ef44431c2dbe1a9b6bbb7c8/transformed/animation-core-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-core-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/7eeaf92b0ef44431c2dbe1a9b6bbb7c8/transformed/animation-core-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/bd8f100d1ca57f66c52929f259836257/transformed/animation-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/bd8f100d1ca57f66c52929f259836257/transformed/animation-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-layout-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/4f12b0203df821e50f59f3ff448dde75/transformed/foundation-layout-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-layout-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/4f12b0203df821e50f59f3ff448dde75/transformed/foundation-layout-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/b1a875d3365ce8340379f4bf40ba20be/transformed/foundation-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/b1a875d3365ce8340379f4bf40ba20be/transformed/foundation-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-tooling-preview-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/a36f208ea6589a4c28fdab63be1821a6/transformed/ui-tooling-preview-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.ui:ui-tooling-preview-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/a36f208ea6589a4c28fdab63be1821a6/transformed/ui-tooling-preview-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.ui:ui-unit-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/50416bda075b3dd8a2d3eb28c6471f69/transformed/ui-unit-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-unit-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/50416bda075b3dd8a2d3eb28c6471f69/transformed/ui-unit-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-graphics-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/6a7d77619a1a7d48ba25409e70423973/transformed/ui-graphics-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-graphics-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/6a7d77619a1a7d48ba25409e70423973/transformed/ui-graphics-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-geometry-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/70af22d8093d9a80ef30ff624c106966/transformed/ui-geometry-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-geometry-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/70af22d8093d9a80ef30ff624c106966/transformed/ui-geometry-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-util-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/5bda80dfc09868555d5059f2dbe04494/transformed/ui-util-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-util-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/5bda80dfc09868555d5059f2dbe04494/transformed/ui-util-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-text-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/ba44f804f507e70becce5080b2b16b55/transformed/ui-text-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-text-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/ba44f804f507e70becce5080b2b16b55/transformed/ui-text-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2:1.3.0] /home/pivo/.gradle/caches/8.13/transforms/37b3496af40f8d96af98c210f0996b9c/transformed/emoji2-1.3.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.emoji2:emoji2:1.3.0] /home/pivo/.gradle/caches/8.13/transforms/37b3496af40f8d96af98c210f0996b9c/transformed/emoji2-1.3.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/1572f2a1f6c5e33010377b0172e641e0/transformed/lifecycle-livedata-core-ktx-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/1572f2a1f6c5e33010377b0172e641e0/transformed/lifecycle-livedata-core-ktx-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/b352b442eb43c81e0f2616e127d87e22/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/b352b442eb43c81e0f2616e127d87e22/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/648bd17f7494b20d57d0d643e01eb94e/transformed/lifecycle-livedata-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/648bd17f7494b20d57d0d643e01eb94e/transformed/lifecycle-livedata-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/54962edd8f6422e4e0d73121d4f524d2/transformed/lifecycle-livedata-core-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/54962edd8f6422e4e0d73121d4f524d2/transformed/lifecycle-livedata-core-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/aa1016c3c6db3d72e2416e5752273cba/transformed/lifecycle-viewmodel-savedstate-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/aa1016c3c6db3d72e2416e5752273cba/transformed/lifecycle-viewmodel-savedstate-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/a6bf8b89aaf17f85814f63729e41e63a/transformed/lifecycle-viewmodel-ktx-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/a6bf8b89aaf17f85814f63729e41e63a/transformed/lifecycle-viewmodel-ktx-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/ab68361e2717327c183e5193ece217af/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/ab68361e2717327c183e5193ece217af/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/1dd35eb66131886825ad9a7ae81bb4dd/transformed/savedstate-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/1dd35eb66131886825ad9a7ae81bb4dd/transformed/savedstate-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/08e724883a66fb09787338aaeb17fb47/transformed/lifecycle-viewmodel-compose-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/08e724883a66fb09787338aaeb17fb47/transformed/lifecycle-viewmodel-compose-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/447f9dae34e1e98350730e3d89b1a2a8/transformed/lifecycle-viewmodel-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/447f9dae34e1e98350730e3d89b1a2a8/transformed/lifecycle-viewmodel-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [io.coil-kt:coil:2.6.0] /home/pivo/.gradle/caches/8.13/transforms/23a4aa0efd17a884483ddc557e85946f/transformed/coil-2.6.0/AndroidManifest.xml:5:5-44
+MERGED from [io.coil-kt:coil:2.6.0] /home/pivo/.gradle/caches/8.13/transforms/23a4aa0efd17a884483ddc557e85946f/transformed/coil-2.6.0/AndroidManifest.xml:5:5-44
+MERGED from [io.coil-kt:coil-base:2.6.0] /home/pivo/.gradle/caches/8.13/transforms/e7b663f124940d709076afc80772c029/transformed/coil-base-2.6.0/AndroidManifest.xml:5:5-44
+MERGED from [io.coil-kt:coil-base:2.6.0] /home/pivo/.gradle/caches/8.13/transforms/e7b663f124940d709076afc80772c029/transformed/coil-base-2.6.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/d43986219cc2b51bceec8d8e5d61f640/transformed/lifecycle-runtime-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/d43986219cc2b51bceec8d8e5d61f640/transformed/lifecycle-runtime-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-service:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/82f69803f35f18de730822534199c77f/transformed/lifecycle-service-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-service:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/82f69803f35f18de730822534199c77f/transformed/lifecycle-service-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/5dd46a110f20a54db537326f642e13e2/transformed/lifecycle-runtime-ktx-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/5dd46a110f20a54db537326f642e13e2/transformed/lifecycle-runtime-ktx-2.7.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-compose:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/71ff27641f122412dced0cce50bcde38/transformed/lifecycle-runtime-compose-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-compose:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/71ff27641f122412dced0cce50bcde38/transformed/lifecycle-runtime-compose-2.7.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.accompanist:accompanist-drawablepainter:0.32.0] /home/pivo/.gradle/caches/8.13/transforms/a38c1742715edc72c6eaadc5e8cdf462/transformed/accompanist-drawablepainter-0.32.0/AndroidManifest.xml:21:5-44
+MERGED from [com.google.accompanist:accompanist-drawablepainter:0.32.0] /home/pivo/.gradle/caches/8.13/transforms/a38c1742715edc72c6eaadc5e8cdf462/transformed/accompanist-drawablepainter-0.32.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.compose.ui:ui-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/7a61c68b4117786bf24e30c7a60d879f/transformed/ui-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/7a61c68b4117786bf24e30c7a60d879f/transformed/ui-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-ktx:1.8.2] /home/pivo/.gradle/caches/8.13/transforms/4e7537d2826d0beb1c5d5657c9434285/transformed/activity-ktx-1.8.2/AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-ktx:1.8.2] /home/pivo/.gradle/caches/8.13/transforms/4e7537d2826d0beb1c5d5657c9434285/transformed/activity-ktx-1.8.2/AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity:1.8.2] /home/pivo/.gradle/caches/8.13/transforms/48b0f65ee222b7cc4349cdccfd34f02a/transformed/activity-1.8.2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.8.2] /home/pivo/.gradle/caches/8.13/transforms/48b0f65ee222b7cc4349cdccfd34f02a/transformed/activity-1.8.2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/0d26655927030a108e49647c6749eb93/transformed/appcompat-resources-1.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/0d26655927030a108e49647c6749eb93/transformed/appcompat-resources-1.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /home/pivo/.gradle/caches/8.13/transforms/f707d72d356235946b23fd8465f9d301/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /home/pivo/.gradle/caches/8.13/transforms/f707d72d356235946b23fd8465f9d301/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /home/pivo/.gradle/caches/8.13/transforms/7031beaa385502b409e549c2ab50405e/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /home/pivo/.gradle/caches/8.13/transforms/7031beaa385502b409e549c2ab50405e/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.autofill:autofill:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/ce9bcf472c1678b768825d3140774ff1/transformed/autofill-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.autofill:autofill:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/ce9bcf472c1678b768825d3140774ff1/transformed/autofill-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.12.0] /home/pivo/.gradle/caches/8.13/transforms/bf38a62e14ffd4d412d0e5629007f6bb/transformed/core-1.12.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.12.0] /home/pivo/.gradle/caches/8.13/transforms/bf38a62e14ffd4d412d0e5629007f6bb/transformed/core-1.12.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/66b178d21d9e0ed98fe673aafe1f29ee/transformed/customview-poolingcontainer-1.0.0/AndroidManifest.xml:20:5-21:38
+MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/66b178d21d9e0ed98fe673aafe1f29ee/transformed/customview-poolingcontainer-1.0.0/AndroidManifest.xml:20:5-21:38
+MERGED from [androidx.core:core-ktx:1.12.0] /home/pivo/.gradle/caches/8.13/transforms/09bb58cd5c191aac93468b98c46efcf7/transformed/core-ktx-1.12.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.12.0] /home/pivo/.gradle/caches/8.13/transforms/09bb58cd5c191aac93468b98c46efcf7/transformed/core-ktx-1.12.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-saveable-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/e8279119ddfafd2f68c7536efc263be0/transformed/runtime-saveable-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-saveable-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/e8279119ddfafd2f68c7536efc263be0/transformed/runtime-saveable-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/73d89a216507c287310ecc78a1236906/transformed/runtime-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-android:1.6.1] /home/pivo/.gradle/caches/8.13/transforms/73d89a216507c287310ecc78a1236906/transformed/runtime-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/2bc28138012c1f44fdcc31550837435f/transformed/annotation-experimental-1.3.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/2bc28138012c1f44fdcc31550837435f/transformed/annotation-experimental-1.3.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/pivo/.gradle/caches/8.13/transforms/6b6d4dce192fa07998fbe4d195817535/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/pivo/.gradle/caches/8.13/transforms/6b6d4dce192fa07998fbe4d195817535/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/23a85a9080701e41f5152918e9e5b2b8/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/23a85a9080701e41f5152918e9e5b2b8/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /home/pivo/.gradle/caches/8.13/transforms/180d3ca291fc7987ed5378373cd38b40/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /home/pivo/.gradle/caches/8.13/transforms/180d3ca291fc7987ed5378373cd38b40/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:21:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:21:5-44
+MERGED from [androidx.startup:startup-runtime:1.1.1] /home/pivo/.gradle/caches/8.13/transforms/392fbf0dc135c8dba57d84582820365e/transformed/startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.startup:startup-runtime:1.1.1] /home/pivo/.gradle/caches/8.13/transforms/392fbf0dc135c8dba57d84582820365e/transformed/startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.tracing:tracing:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/86a342216c7c9ab2cabd346edbf90fdf/transformed/tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/86a342216c7c9ab2cabd346edbf90fdf/transformed/tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.exifinterface:exifinterface:1.3.7] /home/pivo/.gradle/caches/8.13/transforms/11b780c830337b0dc22802d43ee73ae3/transformed/exifinterface-1.3.7/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.exifinterface:exifinterface:1.3.7] /home/pivo/.gradle/caches/8.13/transforms/11b780c830337b0dc22802d43ee73ae3/transformed/exifinterface-1.3.7/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/c4171eb553b2e75e05e44ba2a2356f82/transformed/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/c4171eb553b2e75e05e44ba2a2356f82/transformed/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/a7229e2c8b1d423251891962ec3bbe02/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/a7229e2c8b1d423251891962ec3bbe02/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/6431ea2ce0f890c1fdfc5e50f684f509/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /home/pivo/.gradle/caches/8.13/transforms/6431ea2ce0f890c1fdfc5e50f684f509/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
+	android:targetSdkVersion
+		INJECTED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/pivo/pixelus/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [androidx.media3:media3-common:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/4159e396537536880e3520afe0047e71/transformed/media3-common-1.2.1/AndroidManifest.xml:22:5-79
+MERGED from [androidx.media3:media3-exoplayer:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/df2a3fefb164b746b5e398c0687db566/transformed/media3-exoplayer-1.2.1/AndroidManifest.xml:22:5-79
+MERGED from [androidx.media3:media3-exoplayer:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/df2a3fefb164b746b5e398c0687db566/transformed/media3-exoplayer-1.2.1/AndroidManifest.xml:22:5-79
+	android:name
+		ADDED from [androidx.media3:media3-common:1.2.1] /home/pivo/.gradle/caches/8.13/transforms/4159e396537536880e3520afe0047e71/transformed/media3-common-1.2.1/AndroidManifest.xml:22:22-76
+provider#androidx.startup.InitializationProvider
+ADDED from [androidx.emoji2:emoji2:1.3.0] /home/pivo/.gradle/caches/8.13/transforms/37b3496af40f8d96af98c210f0996b9c/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/b352b442eb43c81e0f2616e127d87e22/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/b352b442eb43c81e0f2616e127d87e22/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.startup:startup-runtime:1.1.1] /home/pivo/.gradle/caches/8.13/transforms/392fbf0dc135c8dba57d84582820365e/transformed/startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
+MERGED from [androidx.startup:startup-runtime:1.1.1] /home/pivo/.gradle/caches/8.13/transforms/392fbf0dc135c8dba57d84582820365e/transformed/startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
+	tools:node
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/pivo/.gradle/caches/8.13/transforms/37b3496af40f8d96af98c210f0996b9c/transformed/emoji2-1.3.0/AndroidManifest.xml:28:13-31
+	android:authorities
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/pivo/.gradle/caches/8.13/transforms/37b3496af40f8d96af98c210f0996b9c/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
+	android:exported
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/pivo/.gradle/caches/8.13/transforms/37b3496af40f8d96af98c210f0996b9c/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/pivo/.gradle/caches/8.13/transforms/37b3496af40f8d96af98c210f0996b9c/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
+meta-data#androidx.emoji2.text.EmojiCompatInitializer
+ADDED from [androidx.emoji2:emoji2:1.3.0] /home/pivo/.gradle/caches/8.13/transforms/37b3496af40f8d96af98c210f0996b9c/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/pivo/.gradle/caches/8.13/transforms/37b3496af40f8d96af98c210f0996b9c/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/pivo/.gradle/caches/8.13/transforms/37b3496af40f8d96af98c210f0996b9c/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
+meta-data#androidx.lifecycle.ProcessLifecycleInitializer
+ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/b352b442eb43c81e0f2616e127d87e22/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/b352b442eb43c81e0f2616e127d87e22/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] /home/pivo/.gradle/caches/8.13/transforms/b352b442eb43c81e0f2616e127d87e22/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:30:17-78
+permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.12.0] /home/pivo/.gradle/caches/8.13/transforms/bf38a62e14ffd4d412d0e5629007f6bb/transformed/core-1.12.0/AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.12.0] /home/pivo/.gradle/caches/8.13/transforms/bf38a62e14ffd4d412d0e5629007f6bb/transformed/core-1.12.0/AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.12.0] /home/pivo/.gradle/caches/8.13/transforms/bf38a62e14ffd4d412d0e5629007f6bb/transformed/core-1.12.0/AndroidManifest.xml:23:9-81
+permission#com.pixelus.music.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.12.0] /home/pivo/.gradle/caches/8.13/transforms/bf38a62e14ffd4d412d0e5629007f6bb/transformed/core-1.12.0/AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.12.0] /home/pivo/.gradle/caches/8.13/transforms/bf38a62e14ffd4d412d0e5629007f6bb/transformed/core-1.12.0/AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.12.0] /home/pivo/.gradle/caches/8.13/transforms/bf38a62e14ffd4d412d0e5629007f6bb/transformed/core-1.12.0/AndroidManifest.xml:23:9-81
+uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.12.0] /home/pivo/.gradle/caches/8.13/transforms/bf38a62e14ffd4d412d0e5629007f6bb/transformed/core-1.12.0/AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.12.0] /home/pivo/.gradle/caches/8.13/transforms/bf38a62e14ffd4d412d0e5629007f6bb/transformed/core-1.12.0/AndroidManifest.xml:26:22-94
+uses-permission#com.pixelus.music.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.12.0] /home/pivo/.gradle/caches/8.13/transforms/bf38a62e14ffd4d412d0e5629007f6bb/transformed/core-1.12.0/AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.12.0] /home/pivo/.gradle/caches/8.13/transforms/bf38a62e14ffd4d412d0e5629007f6bb/transformed/core-1.12.0/AndroidManifest.xml:26:22-94
+meta-data#androidx.profileinstaller.ProfileInstallerInitializer
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+receiver#androidx.profileinstaller.ProfileInstallReceiver
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+	android:enabled
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+	android:exported
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+	android:permission
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+	android:directBootAware
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+intent-filter#action:name:androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+action#androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+intent-filter#action:name:androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+action#androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+intent-filter#action:name:androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+action#androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+intent-filter#action:name:androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+action#androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/pivo/.gradle/caches/8.13/transforms/9c23151c01ba7d2c66808168df1c6308/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92

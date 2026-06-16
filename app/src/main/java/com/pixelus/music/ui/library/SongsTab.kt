@@ -1,13 +1,19 @@
 package com.pixelus.music.ui.library
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDownward
+import androidx.compose.material.icons.filled.ArrowUpward
+import androidx.compose.material.icons.filled.Sort
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -17,8 +23,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.pixelus.music.PixelusApp
 import com.pixelus.music.R
 import com.pixelus.music.data.Song
+import com.pixelus.music.data.SongSort
 import com.pixelus.music.ui.theme.*
 import com.pixelus.music.util.formatDuration
 
@@ -27,6 +35,14 @@ fun SongsTab(
     songs: List<Song>,
     onSongClick: (Song, List<Song>) -> Unit
 ) {
+    val settings = PixelusApp.settings
+    val currentSort by settings.trackSort.collectAsState()
+    val ascending by settings.trackSortAscending.collectAsState()
+
+    val sortedSongs = remember(songs, currentSort, ascending) {
+        sortSongs(songs, currentSort, ascending)
+    }
+
     if (songs.isEmpty()) {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -37,17 +53,101 @@ fun SongsTab(
         return
     }
 
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(bottom = 80.dp)
-    ) {
-        itemsIndexed(songs) { index, song ->
-            SongItem(
-                song = song,
-                onClick = { onSongClick(song, songs) }
-            )
+    Column(modifier = Modifier.fillMaxSize()) {
+        SortBar(
+            currentSort = currentSort,
+            ascending = ascending,
+            onSortChange = { settings.updateTrackSort(it) },
+            onOrderToggle = { settings.updateTrackSortAscending(!ascending) }
+        )
+
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(bottom = 80.dp)
+        ) {
+            itemsIndexed(sortedSongs) { index, song ->
+                SongItem(
+                    song = song,
+                    onClick = { onSongClick(song, sortedSongs) }
+                )
+            }
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun SortBar(
+    currentSort: SongSort,
+    ascending: Boolean,
+    onSortChange: (SongSort) -> Unit,
+    onOrderToggle: () -> Unit
+) {
+    Surface(
+        color = Background,
+        tonalElevation = 2.dp
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp, vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(
+                modifier = Modifier
+                    .weight(1f)
+                    .horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
+                SongSort.entries.forEach { sort ->
+                    val isSelected = sort == currentSort
+                    FilterChip(
+                        selected = isSelected,
+                        onClick = { onSortChange(sort) },
+                        label = {
+                            Text(
+                                sort.label,
+                                style = MaterialTheme.typography.labelSmall,
+                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                            )
+                        },
+                        colors = FilterChipDefaults.filterChipColors(
+                            selectedContainerColor = Primary.copy(alpha = 0.2f),
+                            selectedLabelColor = Primary
+                        ),
+                        border = null
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.width(4.dp))
+
+            IconButton(
+                onClick = onOrderToggle,
+                modifier = Modifier.size(32.dp)
+            ) {
+                Icon(
+                    imageVector = if (ascending) Icons.Default.ArrowUpward
+                    else Icons.Default.ArrowDownward,
+                    contentDescription = if (ascending) "Ascending" else "Descending",
+                    tint = Primary,
+                    modifier = Modifier.size(18.dp)
+                )
+            }
+        }
+    }
+}
+
+private fun sortSongs(songs: List<Song>, sort: SongSort, ascending: Boolean): List<Song> {
+    val sorted = when (sort) {
+        SongSort.TITLE -> songs.sortedBy { it.title.lowercase() }
+        SongSort.ARTIST -> songs.sortedBy { it.artist.lowercase() }
+        SongSort.ALBUM -> songs.sortedBy { it.album.lowercase() }
+        SongSort.DURATION -> songs.sortedBy { it.duration }
+        SongSort.DATE_ADDED -> songs.sortedBy { it.dateAdded }
+        SongSort.YEAR -> songs.sortedBy { it.year }
+    }
+    return if (ascending) sorted else sorted.reversed()
 }
 
 @Composable
@@ -55,44 +155,54 @@ private fun SongItem(
     song: Song,
     onClick: () -> Unit
 ) {
-    Row(
+    Surface(
+        color = Surface,
+        shape = RoundedCornerShape(12.dp),
         modifier = Modifier
             .fillMaxWidth()
+            .padding(horizontal = 12.dp, vertical = 4.dp)
             .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically
     ) {
-        AsyncImage(
-            model = song.albumArtUri,
-            contentDescription = null,
+        Row(
             modifier = Modifier
-                .size(48.dp)
-                .clip(RoundedCornerShape(4.dp)),
-            contentScale = ContentScale.Crop,
-            error = painterResource(R.drawable.ic_music_note)
-        )
-
-        Spacer(modifier = Modifier.width(12.dp))
-
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = song.title,
-                style = MaterialTheme.typography.bodyLarge,
-                fontWeight = FontWeight.Medium,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                .fillMaxWidth()
+                .padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            AsyncImage(
+                model = song.albumArtUri,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(48.dp)
+                    .clip(RoundedCornerShape(4.dp)),
+                contentScale = ContentScale.Crop,
+                error = painterResource(R.drawable.ic_music_note)
             )
+
+            Spacer(modifier = Modifier.width(12.dp))
+
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = song.title,
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Medium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    text = "${song.artist} \u2022 ${song.album}",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = TextSecondary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+
             Text(
-                text = "${song.artist} \u2022 ${song.album}",
+                text = formatDuration(song.duration),
                 style = MaterialTheme.typography.labelSmall,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                color = TextSecondary
             )
         }
-
-        Text(
-            text = formatDuration(song.duration),
-            style = MaterialTheme.typography.labelSmall
-        )
     }
 }
