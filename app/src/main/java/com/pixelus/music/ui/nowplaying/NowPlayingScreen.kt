@@ -33,7 +33,9 @@ import com.pixelus.music.data.Lyrics
 import com.pixelus.music.player.MusicService
 import com.pixelus.music.player.PlayerState
 import com.pixelus.music.player.RepeatMode
+import com.pixelus.music.ui.components.MetadataSheet
 import com.pixelus.music.ui.components.QueueSheet
+import com.pixelus.music.ui.components.WavingSeekBar
 import com.pixelus.music.ui.theme.*
 import com.pixelus.music.util.formatDuration
 
@@ -54,6 +56,7 @@ fun NowPlayingScreen(
     val song = playerState.currentSong ?: return
     var showLyrics by remember { mutableStateOf(false) }
     var showQueue by remember { mutableStateOf(false) }
+    var showMetadata by remember { mutableStateOf(false) }
     val hasLyrics = playerState.lyrics != null || playerState.lyricsLoading
 
     val context = LocalContext.current
@@ -120,6 +123,7 @@ fun NowPlayingScreen(
                 showLyrics = showLyrics,
                 onToggleLyrics = { showLyrics = !showLyrics },
                 onOpenQueue = { showQueue = true },
+                onOpenMetadata = { showMetadata = true },
                 sleepTimerActive = playerState.sleepTimerActive,
                 sleepTimerRemaining = playerState.sleepTimerRemaining,
                 onStartSleepTimer = onStartSleepTimer,
@@ -166,6 +170,13 @@ fun NowPlayingScreen(
             Spacer(modifier = Modifier.height(24.dp))
         }
 
+        if (showMetadata) {
+            MetadataSheet(
+                song = song,
+                onDismiss = { showMetadata = false }
+            )
+        }
+
         if (showQueue) {
             QueueSheet(
                 queue = playerState.queue,
@@ -193,6 +204,7 @@ private fun TopBar(
     showLyrics: Boolean,
     onToggleLyrics: () -> Unit,
     onOpenQueue: () -> Unit = {},
+    onOpenMetadata: () -> Unit = {},
     sleepTimerActive: Boolean = false,
     sleepTimerRemaining: Long = 0,
     onStartSleepTimer: (Long) -> Unit = {},
@@ -248,6 +260,11 @@ private fun TopBar(
                 expanded = showMenu,
                 onDismissRequest = { showMenu = false }
             ) {
+                DropdownMenuItem(
+                    text = { Text("Edit Metadata") },
+                    onClick = { showMenu = false; onOpenMetadata() },
+                    leadingIcon = { Icon(Icons.Default.Edit, contentDescription = null) }
+                )
                 if (sleepTimerActive) {
                     DropdownMenuItem(
                         text = {
@@ -439,26 +456,15 @@ private fun SeekBarSection(
     duration: Long,
     onSeek: (Long) -> Unit
 ) {
-    var sliderPosition by remember(currentPosition) {
-        mutableFloatStateOf(if (duration > 0) currentPosition.toFloat() / duration.toFloat() else 0f)
-    }
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 32.dp)
     ) {
-        Slider(
-            value = sliderPosition,
-            onValueChange = { sliderPosition = it },
-            onValueChangeFinished = {
-                onSeek((sliderPosition * duration).toLong())
-            },
-            colors = SliderDefaults.colors(
-                thumbColor = Primary,
-                activeTrackColor = Primary,
-                inactiveTrackColor = SurfaceVariant
-            ),
+        WavingSeekBar(
+            currentPosition = currentPosition,
+            duration = duration,
+            onSeek = onSeek,
             modifier = Modifier.fillMaxWidth()
         )
         Row(
