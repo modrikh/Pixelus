@@ -1,7 +1,15 @@
 package com.pixelus.music.ui.navigation
 
-sealed class Screen(val route: String) {
-    data object Library : Screen("library")
-    data object NowPlaying : Screen("now_playing")
-    data object Search : Screen("search")
+import com.pixelus.music.data.Song
+
+sealed class Screen {
+    data object Library : Screen()
+    data object NowPlaying : Screen()
+    data object Search : Screen()
+    data object Settings : Screen()
+    data class Detail(
+        val title: String,
+        val subtitle: String?,
+        val songs: List<Song>
+    ) : Screen()
 }

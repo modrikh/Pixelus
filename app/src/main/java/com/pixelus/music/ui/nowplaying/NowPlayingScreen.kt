@@ -37,6 +37,7 @@ import com.pixelus.music.ui.components.MetadataSheet
 import com.pixelus.music.ui.components.QueueSheet
 import com.pixelus.music.ui.components.WavingSeekBar
 import com.pixelus.music.ui.theme.*
+import com.pixelus.music.ui.theme.Dimens
 import com.pixelus.music.util.formatDuration
 
 @Composable
@@ -114,7 +115,7 @@ fun NowPlayingScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 48.dp)
+                .padding(top = Dimens.spacingLarge)
         ) {
             TopBar(
                 onBack = onBack,
@@ -146,7 +147,7 @@ fun NowPlayingScreen(
 
             SongInfoSection(title = song.title, artist = song.artist, album = song.album)
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(Dimens.spacingSmall))
 
             SeekBarSection(
                 currentPosition = playerState.currentPosition,
@@ -154,7 +155,7 @@ fun NowPlayingScreen(
                 onSeek = onSeek
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(Dimens.spacingSmall))
 
             PlaybackControls(
                 isPlaying = playerState.isPlaying,
@@ -167,7 +168,7 @@ fun NowPlayingScreen(
                 onRepeat = onRepeat
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(Dimens.spacingLarge))
         }
 
         if (showMetadata) {
@@ -212,10 +213,10 @@ private fun TopBar(
 ) {
     var showMenu by remember { mutableStateOf(false) }
 
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 8.dp),
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = Dimens.spacingSmall),
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconButton(onClick = onBack) {
@@ -314,7 +315,7 @@ private fun AlbumArtSection(albumArtUri: Uri?) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 48.dp),
+            .padding(horizontal = Dimens.spacingExtraLarge + Dimens.spacingMedium),
         contentAlignment = Alignment.Center
     ) {
         AsyncImage(
@@ -323,7 +324,7 @@ private fun AlbumArtSection(albumArtUri: Uri?) {
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(1f)
-                .clip(RoundedCornerShape(24.dp)),
+                .clip(RoundedCornerShape(Dimens.cornerRadiusExtraLarge)),
             contentScale = ContentScale.Crop
         )
     }
@@ -338,14 +339,14 @@ private fun LyricsSection(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 24.dp),
+            .padding(horizontal = Dimens.spacingLarge),
         contentAlignment = Alignment.Center
     ) {
         when {
             isLoading -> {
                 CircularProgressIndicator(
                     color = Primary,
-                    modifier = Modifier.size(32.dp)
+                    modifier = Modifier.size(Dimens.iconSizeSmall + 8.dp)
                 )
             }
             lyrics == null -> {
@@ -394,7 +395,7 @@ private fun SyncedLyricsView(lyrics: Lyrics, currentPosition: Long) {
                 textAlign = settings.lyricsAlignment,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp)
+                    .padding(vertical = Dimens.spacingSmall)
             )
         }
     }
@@ -416,7 +417,7 @@ private fun PlainLyricsView(lyrics: Lyrics) {
                 color = OnBackground,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 4.dp)
+                    .padding(vertical = Dimens.spacingExtraSmall)
             )
         }
     }
@@ -431,7 +432,7 @@ private fun SongInfoSection(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 32.dp, vertical = 16.dp)
+            .padding(horizontal = Dimens.spacingExtraLarge, vertical = Dimens.spacingMedium)
     ) {
         Text(
             text = title,
@@ -459,7 +460,7 @@ private fun SeekBarSection(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 32.dp)
+            .padding(horizontal = Dimens.spacingExtraLarge)
     ) {
         WavingSeekBar(
             currentPosition = currentPosition,
@@ -497,7 +498,7 @@ private fun PlaybackControls(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 24.dp),
+            .padding(horizontal = Dimens.spacingLarge),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
@@ -506,7 +507,7 @@ private fun PlaybackControls(
                 imageVector = Icons.Default.Shuffle,
                 contentDescription = "Shuffle",
                 tint = if (shuffleEnabled) Primary else TextSecondary,
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(Dimens.iconSizeSmall)
             )
         }
 
@@ -515,21 +516,21 @@ private fun PlaybackControls(
                 imageVector = Icons.Default.SkipPrevious,
                 contentDescription = "Previous",
                 tint = OnBackground,
-                modifier = Modifier.size(36.dp)
+                modifier = Modifier.size(Dimens.iconSizeSmall + 12.dp)
             )
         }
 
         IconButton(
             onClick = onPlayPause,
             modifier = Modifier
-                .size(72.dp)
+                .size(Dimens.iconSizeLarge + Dimens.spacingMedium)
                 .background(Primary, RoundedCornerShape(50))
         ) {
             Icon(
                 imageVector = if (isPlaying) Icons.Default.Pause else Icons.Default.PlayArrow,
                 contentDescription = if (isPlaying) "Pause" else "Play",
                 tint = OnPrimary,
-                modifier = Modifier.size(36.dp)
+                modifier = Modifier.size(Dimens.iconSizeSmall + 12.dp)
             )
         }
 
@@ -538,7 +539,7 @@ private fun PlaybackControls(
                 imageVector = Icons.Default.SkipNext,
                 contentDescription = "Next",
                 tint = OnBackground,
-                modifier = Modifier.size(36.dp)
+                modifier = Modifier.size(Dimens.iconSizeSmall + 12.dp)
             )
         }
 
@@ -552,7 +553,7 @@ private fun PlaybackControls(
                 imageVector = repeatIcon,
                 contentDescription = "Repeat",
                 tint = if (repeatMode != RepeatMode.OFF) Primary else TextSecondary,
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(Dimens.iconSizeSmall)
             )
         }
     }

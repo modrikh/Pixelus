@@ -50,7 +50,6 @@ fun PixelusMusicTheme(
     animate: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val context = LocalContext.current
     val isDark = when (appearance) {
         Appearance.Light -> false
         Appearance.Dark -> true

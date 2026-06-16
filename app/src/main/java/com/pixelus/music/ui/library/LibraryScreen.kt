@@ -28,6 +28,7 @@ import com.pixelus.music.data.playlist.LocalPlaylist
 import com.pixelus.music.player.PlayerState
 import com.pixelus.music.ui.components.Tab
 import com.pixelus.music.ui.theme.*
+import com.pixelus.music.ui.theme.Dimens
 
 private fun Tab.icon(): ImageVector = when (this) {
     Tab.Tracks -> Icons.Outlined.MusicNote
@@ -183,8 +184,8 @@ fun PlayerBar(
 ) {
     Surface(
         color = Surface,
-        shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
-        tonalElevation = 4.dp,
+        shape = RoundedCornerShape(topStart = Dimens.cornerRadiusLarge, topEnd = Dimens.cornerRadiusLarge),
+        tonalElevation = Dimens.spacingExtraSmall,
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
@@ -192,7 +193,7 @@ fun PlayerBar(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
+                .padding(horizontal = Dimens.spacingMedium, vertical = Dimens.spacingSmall),
             verticalAlignment = Alignment.CenterVertically
         ) {
             val albumArtUri = playerState.currentSong?.albumArtUri
@@ -201,20 +202,20 @@ fun PlayerBar(
                     model = albumArtUri,
                     contentDescription = null,
                     modifier = Modifier
-                        .size(42.dp)
-                        .clip(RoundedCornerShape(8.dp)),
+                        .size(Dimens.albumArtSmall)
+                        .clip(RoundedCornerShape(Dimens.cornerRadiusSmall)),
                     contentScale = ContentScale.Crop
                 )
             } else {
                 Icon(
                     imageVector = Icons.Default.MusicNote,
                     contentDescription = null,
-                    modifier = Modifier.size(42.dp),
+                    modifier = Modifier.size(Dimens.albumArtSmall),
                     tint = TextSecondary
                 )
             }
 
-            Spacer(modifier = Modifier.width(12.dp))
+            Spacer(modifier = Modifier.width(Dimens.spacingSmall + 4.dp))
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(

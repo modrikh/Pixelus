@@ -9,7 +9,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.Surface
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -24,6 +23,9 @@ import coil.compose.AsyncImage
 import com.pixelus.music.R
 import com.pixelus.music.data.Song
 import com.pixelus.music.ui.theme.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,15 +35,23 @@ fun SearchScreen(
     onSongClick: (Song, List<Song>) -> Unit
 ) {
     var query by remember { mutableStateOf("") }
+    var debouncedQuery by remember { mutableStateOf("") }
+    val scope = rememberCoroutineScope()
 
-    val filteredSongs = remember(songs, query) {
-        if (query.isBlank()) {
+    LaunchedEffect(query) {
+        delay(300)
+        debouncedQuery = query
+    }
+
+    val filteredSongs = remember(songs, debouncedQuery) {
+        if (debouncedQuery.isBlank()) {
             songs
         } else {
+            val q = debouncedQuery.lowercase()
             songs.filter {
-                it.title.contains(query, ignoreCase = true) ||
-                it.artist.contains(query, ignoreCase = true) ||
-                it.album.contains(query, ignoreCase = true)
+                it.title.lowercase().contains(q) ||
+                it.artist.lowercase().contains(q) ||
+                it.album.lowercase().contains(q)
             }
         }
     }
@@ -68,7 +78,7 @@ fun SearchScreen(
                     singleLine = true,
                     trailingIcon = {
                         if (query.isNotEmpty()) {
-                            IconButton(onClick = { query = "" }) {
+                            IconButton(onClick = { query = ""; debouncedQuery = "" }) {
                                 Icon(Icons.Default.Close, contentDescription = "Clear")
                             }
                         }
@@ -86,22 +96,36 @@ fun SearchScreen(
             )
         )
 
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(bottom = 80.dp)
-        ) {
-            items(filteredSongs) { song ->
-                SearchResultItem(
-                    song = song,
-                    onClick = { onSongClick(song, filteredSongs) }
+        if (filteredSongs.isEmpty() && debouncedQuery.isNotBlank()) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    "No results found",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = TextSecondary
                 )
+            }
+        } else {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(bottom = 80.dp)
+            ) {
+                items(filteredSongs) { song ->
+                    SearchResultItem(
+                        song = song,
+                        query = debouncedQuery,
+                        onClick = { onSongClick(song, filteredSongs) }
+                    )
+                }
             }
         }
     }
 }
 
 @Composable
-private fun SearchResultItem(song: Song, onClick: () -> Unit) {
+private fun SearchResultItem(song: Song, query: String, onClick: () -> Unit) {
     Surface(
         color = Surface,
         shape = RoundedCornerShape(12.dp),

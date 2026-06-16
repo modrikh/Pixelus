@@ -45,6 +45,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+private val Icons_ChevronRight get() = Icons.Default.KeyboardArrowRight
+private val Icons_ArrowBack get() = Icons.AutoMirrored.Filled.ArrowBack
+
 private enum class SettingsPage {
     MAIN, PLAYBACK, MUSIC_SCAN, THEME, LYRICS, PLAYLISTS, TABS, ABOUT
 }
@@ -247,7 +250,7 @@ private fun MainSettingsPage(
                 }
             }
 
-            if (showSection("Display", listOf("display", "theme", "lyrics", "appearance", "color", "amoled", "dark"))) {
+            if (showSection("Display", listOf("display", "theme", "lyrics", "appearance", "color", "amoled", "dark", "font", "text"))) {
                 SectionHeader("Display")
                 if (q.isEmpty() || "theme".contains(q) || "appearance".contains(q) || "color".contains(q) || "amoled".contains(q) || "dark".contains(q)) {
                     SettingsItem(
@@ -629,6 +632,18 @@ private fun ThemeSettingsPage(
             subtitle = "Theme accent adapts to the currently playing album art",
             checked = useAlbumArt,
             onCheckedChange = settings::updateUseAlbumArtColor
+        )
+
+        ExternalSpacer()
+
+        val fontSize = settings.fontSize
+        SettingSegmentOptions(
+            icon = Icons.Default.TextFields,
+            title = "Font Size",
+            subtitle = "Adjust text size throughout the app",
+            selectedIndex = fontSize,
+            options = listOf("Small", "Default", "Large"),
+            onSelect = { settings.fontSize = it }
         )
 
         ExternalSpacer()

@@ -77,10 +77,9 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="?android:selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_skip_next"
+            android:src="@drawable/ic_skip_previous"
             android:scaleType="center"
-            android:contentDescription="Previous"
-            android:rotation="180" />
+            android:contentDescription="Previous" />
 
         <ImageButton
             android:id="@+id/widget_play_pause"

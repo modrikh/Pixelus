@@ -45,6 +45,15 @@
     </LinearLayout>
 
     <ImageButton
+        android:id="@+id/widget_previous"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
+        android:background="?android:selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_skip_previous"
+        android:contentDescription="Previous" />
+
+    <ImageButton
         android:id="@+id/widget_play_pause"
         android:layout_width="48dp"
         android:layout_height="48dp"
@@ -55,8 +64,8 @@
 
     <ImageButton
         android:id="@+id/widget_next"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_gravity="center_vertical"
         android:background="?android:selectableItemBackgroundBorderless"
         android:src="@drawable/ic_skip_next"

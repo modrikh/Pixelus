@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDownward
 import androidx.compose.material.icons.filled.ArrowUpward
+import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.material.icons.filled.PlaylistAdd
 import androidx.compose.material.icons.filled.SkipNext
 import androidx.compose.material.icons.filled.Sort
@@ -36,6 +37,7 @@ import com.pixelus.music.data.SongSort
 import com.pixelus.music.player.MusicPlayer
 import com.pixelus.music.ui.components.ScrollToTopAndLocateButtons
 import com.pixelus.music.ui.theme.*
+import com.pixelus.music.ui.theme.Dimens
 import com.pixelus.music.util.formatDuration
 
 @Composable
@@ -56,7 +58,16 @@ fun SongsTab(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            Text("No songs found", color = TextSecondary)
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Icon(
+                    imageVector = Icons.Default.MusicNote,
+                    contentDescription = null,
+                    modifier = Modifier.size(Dimens.iconSizeLarge),
+                    tint = TextSecondary
+                )
+                Spacer(modifier = Modifier.height(Dimens.spacingSmall))
+                Text("No songs found", color = TextSecondary)
+            }
         }
         return
     }
@@ -109,10 +120,10 @@ private fun SongItemWithMenu(
 
     Surface(
         color = Surface,
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(Dimens.cornerRadiusMedium),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 12.dp, vertical = 4.dp)
+            .padding(horizontal = Dimens.spacingSmall + 4.dp, vertical = Dimens.spacingExtraSmall)
             .combinedClickable(
                 onClick = onClick,
                 onLongClick = { showMenu = true }
@@ -121,20 +132,20 @@ private fun SongItemWithMenu(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
+                .padding(Dimens.spacingSmall + 4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
                 model = song.albumArtUri,
                 contentDescription = null,
                 modifier = Modifier
-                    .size(48.dp)
-                    .clip(RoundedCornerShape(4.dp)),
+                    .size(Dimens.albumArtMedium - 8.dp)
+                    .clip(RoundedCornerShape(Dimens.cornerRadiusSmall)),
                 contentScale = ContentScale.Crop,
                 error = painterResource(R.drawable.ic_music_note)
             )
 
-            Spacer(modifier = Modifier.width(12.dp))
+            Spacer(modifier = Modifier.width(Dimens.spacingSmall + 4.dp))
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(

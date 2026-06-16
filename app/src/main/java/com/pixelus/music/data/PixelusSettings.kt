@@ -166,6 +166,12 @@ class PixelusSettings(context: Context) {
         prefs.edit().putBoolean(amoledDarkThemeKey, value).apply()
     }
 
+    // Font size
+    private val fontSizeKey = "font_size"
+    var fontSize: Int
+        get() = prefs.getInt(fontSizeKey, 1)
+        set(value) { prefs.edit().putInt(fontSizeKey, value).apply() }
+
     // --- Theme ---
 
     private val _paletteStyle = MutableStateFlow(

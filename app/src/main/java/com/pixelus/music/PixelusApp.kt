@@ -16,6 +16,7 @@ class PixelusApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
         settings = PixelusSettings(this)
         playlistRepository = PlaylistRepository(this)
         metadataWriter = MetadataWriterImpl(this)
@@ -43,6 +44,8 @@ class PixelusApp : Application() {
 
     companion object {
         const val CHANNEL_ID = "music_playback"
+        lateinit var instance: PixelusApp
+            private set
         lateinit var settings: PixelusSettings
             private set
         lateinit var musicScanner: MusicScanner

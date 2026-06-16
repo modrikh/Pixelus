@@ -3,12 +3,13 @@ package com.pixelus.music.data
 import android.content.ContentUris
 import android.content.Context
 import android.net.Uri
-import android.os.Build
 import android.provider.MediaStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class MusicRepository(private val context: Context) {
+
+    private var songIndex: Map<Long, Song> = emptyMap()
 
     suspend fun loadAllSongs(): List<Song> = withContext(Dispatchers.IO) {
         val songs = mutableListOf<Song>()
@@ -81,6 +82,7 @@ class MusicRepository(private val context: Context) {
                 )
             }
         }
+        songIndex = songs.associateBy { it.id }
         songs
     }
 
@@ -151,7 +153,7 @@ class MusicRepository(private val context: Context) {
     }
 
     private fun getGenreForSong(context: Context, songId: Long): String {
-        val uri = MediaStore.Audio.Genres.getContentUriForAudioId("external", (songId % Int.MAX_VALUE).toInt())
+        val uri = MediaStore.Audio.Genres.getContentUriForAudioId("external", songId.toInt())
         val projection = arrayOf(MediaStore.Audio.Genres.NAME)
         context.contentResolver.query(uri, projection, null, null, null)?.use { cursor ->
             if (cursor.moveToFirst()) {
@@ -167,15 +169,15 @@ class MusicRepository(private val context: Context) {
             MediaStore.Audio.Playlists.Members.AUDIO_ID,
             MediaStore.Audio.Playlists.Members.PLAY_ORDER
         )
-        val songIds = mutableListOf<Long>()
+        val songIdsOrdered = mutableListOf<Long>()
         val c = context.contentResolver.query(uri, projection, null, null, "${MediaStore.Audio.Playlists.Members.PLAY_ORDER} ASC")
         c?.use {
             val audioIdCol = it.getColumnIndexOrThrow(MediaStore.Audio.Playlists.Members.AUDIO_ID)
             while (it.moveToNext()) {
-                songIds.add(it.getLong(audioIdCol))
+                songIdsOrdered.add(it.getLong(audioIdCol))
             }
         }
-        loadAllSongs().filter { it.id in songIds }
+        songIdsOrdered.mapNotNull { id -> songIndex[id] }
     }
 
     private fun getPlaylistSongCount(context: Context, playlistId: Long): Int {
@@ -185,4 +187,6 @@ class MusicRepository(private val context: Context) {
         }
         return 0
     }
+
+    fun findSongById(id: Long): Song? = songIndex[id]
 }

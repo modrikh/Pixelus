@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.pixelus.music.data.Song
 import com.pixelus.music.ui.theme.*
+import com.pixelus.music.ui.theme.Dimens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,7 +59,7 @@ fun DetailScreen(
                         text = subtitle,
                         style = MaterialTheme.typography.bodyMedium,
                         color = TextSecondary,
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                        modifier = Modifier.padding(horizontal = Dimens.spacingMedium, vertical = Dimens.spacingSmall)
                     )
                 }
             }
@@ -68,10 +69,19 @@ fun DetailScreen(
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(32.dp),
+                            .padding(Dimens.spacingExtraLarge),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text("No songs found", color = TextSecondary)
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Icon(
+                                Icons.Default.MusicNote,
+                                contentDescription = null,
+                                modifier = Modifier.size(Dimens.iconSizeLarge),
+                                tint = TextSecondary
+                            )
+                            Spacer(modifier = Modifier.height(Dimens.spacingSmall))
+                            Text("No songs found", color = TextSecondary)
+                        }
                     }
                 }
             }
@@ -87,16 +97,16 @@ fun DetailScreen(
 private fun SongRow(song: Song, onClick: () -> Unit) {
     Surface(
         color = Surface,
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(Dimens.cornerRadiusMedium),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 12.dp, vertical = 4.dp)
+            .padding(horizontal = Dimens.spacingSmall + 4.dp, vertical = Dimens.spacingExtraSmall)
             .clickable(onClick = onClick)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
+                .padding(Dimens.spacingSmall + 4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             val artUri = song.albumArtUri
@@ -105,20 +115,20 @@ private fun SongRow(song: Song, onClick: () -> Unit) {
                     model = artUri,
                     contentDescription = null,
                     modifier = Modifier
-                        .size(48.dp)
-                        .clip(RoundedCornerShape(8.dp)),
+                        .size(Dimens.albumArtMedium - 8.dp)
+                        .clip(RoundedCornerShape(Dimens.cornerRadiusSmall)),
                     contentScale = ContentScale.Crop
                 )
             } else {
                 Icon(
                     imageVector = Icons.Default.MusicNote,
                     contentDescription = null,
-                    modifier = Modifier.size(48.dp),
+                    modifier = Modifier.size(Dimens.albumArtMedium - 8.dp),
                     tint = TextSecondary
                 )
             }
 
-            Spacer(modifier = Modifier.width(12.dp))
+            Spacer(modifier = Modifier.width(Dimens.spacingSmall + 4.dp))
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
