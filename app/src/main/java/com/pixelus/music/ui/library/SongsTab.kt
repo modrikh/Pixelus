@@ -6,6 +6,7 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -19,6 +20,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import kotlinx.coroutines.launch
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -32,6 +34,7 @@ import com.pixelus.music.R
 import com.pixelus.music.data.Song
 import com.pixelus.music.data.SongSort
 import com.pixelus.music.player.MusicPlayer
+import com.pixelus.music.ui.components.ScrollToTopAndLocateButtons
 import com.pixelus.music.ui.theme.*
 import com.pixelus.music.util.formatDuration
 
@@ -58,25 +61,41 @@ fun SongsTab(
         return
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        SortBar(
-            currentSort = currentSort,
-            ascending = ascending,
-            onSortChange = { settings.updateTrackSort(it) },
-            onOrderToggle = { settings.updateTrackSortAscending(!ascending) }
-        )
+    val listState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
 
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(bottom = 80.dp)
-        ) {
-            itemsIndexed(sortedSongs) { index, song ->
-                SongItemWithMenu(
-                    song = song,
-                    onClick = { onSongClick(song, sortedSongs) }
-                )
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize()) {
+            SortBar(
+                currentSort = currentSort,
+                ascending = ascending,
+                onSortChange = { settings.updateTrackSort(it) },
+                onOrderToggle = { settings.updateTrackSortAscending(!ascending) }
+            )
+
+            LazyColumn(
+                state = listState,
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(bottom = 80.dp)
+            ) {
+                itemsIndexed(sortedSongs) { index, song ->
+                    SongItemWithMenu(
+                        song = song,
+                        onClick = { onSongClick(song, sortedSongs) }
+                    )
+                }
             }
         }
+
+        ScrollToTopAndLocateButtons(
+            showScrollToTopButton = listState.firstVisibleItemIndex > 0,
+            onScrollToTopClick = {
+                coroutineScope.launch { listState.animateScrollToItem(0) }
+            },
+            showLocateButton = false,
+            onLocateClick = {},
+            modifier = Modifier.align(Alignment.BottomEnd)
+        )
     }
 }
 

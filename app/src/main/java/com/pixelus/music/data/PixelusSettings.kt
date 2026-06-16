@@ -45,6 +45,13 @@ class PixelusSettings(context: Context) {
     // Playlists
     private val gridPlaylistsKey = "grid_playlists"
 
+    // Setup
+    private val setupCompleteKey = "setup_complete"
+
+    var setupComplete: Boolean
+        get() = prefs.getBoolean(setupCompleteKey, false)
+        set(value) { prefs.edit().putBoolean(setupCompleteKey, value).apply() }
+
     // Tabs
     private val tabOrderKey = "tab_order"
     private val defaultTabKey = "default_tab"

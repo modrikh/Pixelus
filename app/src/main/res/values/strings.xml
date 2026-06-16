@@ -88,6 +88,8 @@
     <string name="replace_search_with_filter">Replace Search with Filter</string>
     <string name="setup_welcome_title">Welcome to Pixelus Music</string>
     <string name="setup_welcome_body">A local-first music player with Lotus-inspired design</string>
+    <string name="setup_scan_title">Scan Your Music</string>
+    <string name="setup_scan_body">Choose which folders to scan for music. You can always change this later in Settings.</string>
     <string name="get_started">Get Started</string>
     <string name="grant_permission">Grant Permission</string>
     <string name="audio_permission_explain">We need access to your audio files to play music</string>
@@ -95,4 +97,5 @@
     <string name="finish">Finish</string>
     <string name="scroll_to_top">Scroll to top</string>
     <string name="locate_track">Locate current track</string>
+    <string name="scan_music_explain">Pixelus will scan your Music folder and any additional folders you choose</string>
 </resources>

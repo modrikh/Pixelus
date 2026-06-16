@@ -23,6 +23,7 @@ import com.pixelus.music.ui.library.*
 import com.pixelus.music.ui.nowplaying.NowPlayingScreen
 import com.pixelus.music.ui.search.SearchScreen
 import com.pixelus.music.ui.settings.SettingsScreen
+import com.pixelus.music.ui.setup.SetupWizard
 import com.pixelus.music.ui.theme.PixelusMusicTheme
 
 class MainActivity : ComponentActivity() {
@@ -127,6 +128,16 @@ class MainActivity : ComponentActivity() {
 
                 val repoPlaylists by PixelusApp.playlistRepository.playlists.collectAsStateWithLifecycle()
                 LaunchedEffect(repoPlaylists) { localPlaylists = repoPlaylists }
+
+                if (!PixelusApp.settings.setupComplete) {
+                    SetupWizard(
+                        onComplete = {
+                            PixelusApp.settings.setupComplete = true
+                            scope.launch { loadAll() }
+                        }
+                    )
+                    return@setContent
+                }
 
                 when {
                     detailSongs.isNotEmpty() -> {
