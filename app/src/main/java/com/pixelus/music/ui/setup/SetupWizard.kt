@@ -11,6 +11,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -99,15 +100,9 @@ fun SetupWizard(
                         modifier = Modifier
                             .padding(horizontal = 4.dp)
                             .size(if (i == currentPage) 10.dp else 8.dp)
-                            .then(
-                                Modifier
-                                    .let {
-                                        @Suppress("DEPRECATION")
-                                        it.background(
-                                            if (i == currentPage) Primary else TextSecondary.copy(alpha = 0.3f),
-                                            RoundedCornerShape(50)
-                                        )
-                                    }
+                            .background(
+                                if (i == currentPage) Primary else TextSecondary.copy(alpha = 0.3f),
+                                RoundedCornerShape(50)
                             )
                     )
                 }

@@ -22,12 +22,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.drawable.toBitmap
-import coil.Coil
-import coil.request.ImageRequest
 import com.pixelus.music.PixelusApp
 import com.pixelus.music.data.Song
 import com.pixelus.music.data.metadata.Metadata
+import com.pixelus.music.data.result.Result
+import com.pixelus.music.data.result.DataError
 import com.pixelus.music.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -61,12 +60,14 @@ fun MetadataSheet(
     ) { uri: Uri? ->
         uri?.let {
             try {
-                val input = context.contentResolver.openInputStream(it)
-                coverArtBytes = input?.readBytes()
-                input?.close()
-                val request = ImageRequest.Builder(context).data(it).size(256).build()
-                val result = Coil.imageLoader(context).execute(request)
-                coverArtBitmap = (result.drawable as? android.graphics.drawable.BitmapDrawable)?.bitmap
+                context.contentResolver.openInputStream(it)?.use { input ->
+                    coverArtBytes = input.readBytes()
+                }
+                val bmp = android.graphics.BitmapFactory.decodeByteArray(coverArtBytes, 0, coverArtBytes!!.size)
+                if (bmp != null) {
+                    val scaled = android.graphics.Bitmap.createScaledBitmap(bmp, 256, 256, true)
+                    coverArtBitmap = scaled
+                }
             } catch (_: Exception) { }
         }
     }
@@ -74,19 +75,20 @@ fun MetadataSheet(
     LaunchedEffect(song) {
         loading = true
         when (val result = metadataWriter.readMetadata(song)) {
-            is com.pixelus.music.data.result.Result.Success -> {
-                metadata = result.data
-                title = result.data.title ?: song.title
-                artist = result.data.artist ?: song.artist
-                album = result.data.album ?: song.album
-                albumArtist = result.data.albumArtist ?: ""
-                genre = result.data.genre ?: song.genre
-                year = result.data.year ?: if (song.year > 0) song.year.toString() else ""
-                trackNumber = result.data.trackNumber ?: if (song.trackNumber > 0) song.trackNumber.toString() else ""
-                lyrics = result.data.lyrics ?: ""
-                result.data.coverArtBytes?.let { coverArtBytes = it }
+            is Result.Success<*> -> {
+                val data = result.data as? Metadata ?: return@LaunchedEffect
+                metadata = data
+                title = data.title ?: song.title
+                artist = data.artist ?: song.artist
+                album = data.album ?: song.album
+                albumArtist = data.albumArtist ?: ""
+                genre = data.genre ?: song.genre
+                year = data.year ?: if (song.year > 0) song.year.toString() else ""
+                trackNumber = data.trackNumber ?: if (song.trackNumber > 0) song.trackNumber.toString() else ""
+                lyrics = data.lyrics ?: ""
+                data.coverArtBytes?.let { coverArtBytes = it }
             }
-            is com.pixelus.music.data.result.Result.Error -> {
+            is Result.Error<*> -> {
                 errorMessage = "Failed to read metadata"
             }
         }
@@ -296,10 +298,10 @@ fun MetadataSheet(
                                 lyrics = lyrics.ifBlank { null }
                             )
                             when (val result = metadataWriter.writeMetadata(song, newMetadata) {}) {
-                                is com.pixelus.music.data.result.Result.Success -> {
+                                is Result.Success<*> -> {
                                     showSuccess = true
                                 }
-                                is com.pixelus.music.data.result.Result.Error -> {
+                                is Result.Error<*> -> {
                                     errorMessage = "Failed to save metadata: ${result.error}"
                                 }
                             }

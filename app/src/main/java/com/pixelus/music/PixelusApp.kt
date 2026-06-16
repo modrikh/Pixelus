@@ -14,13 +14,6 @@ import com.pixelus.music.widget.MusicServiceHolder
 
 class PixelusApp : Application() {
 
-    lateinit var playlistRepository: PlaylistRepository
-        private set
-    lateinit var metadataWriter: MetadataWriterImpl
-        private set
-    lateinit var playerStateManager: PlayerStateManager
-        private set
-
     override fun onCreate() {
         super.onCreate()
         settings = PixelusSettings(this)
@@ -53,6 +46,12 @@ class PixelusApp : Application() {
         lateinit var settings: PixelusSettings
             private set
         lateinit var musicScanner: MusicScanner
+            private set
+        lateinit var playlistRepository: PlaylistRepository
+            private set
+        lateinit var metadataWriter: MetadataWriterImpl
+            private set
+        lateinit var playerStateManager: PlayerStateManager
             private set
     }
 }

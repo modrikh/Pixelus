@@ -1,6 +1,7 @@
 package com.pixelus.music.ui.components
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.rounded.SelectAll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -25,7 +26,7 @@ fun SelectionTopAppBar(
         },
         navigationIcon = {
             IconButton(onClick = onClearSelection) {
-                Icon(Icons.Default.Close, contentDescription = "Clear selection")
+                Icon(Icons.Default.Clear, contentDescription = "Clear selection")
             }
         },
         actions = {

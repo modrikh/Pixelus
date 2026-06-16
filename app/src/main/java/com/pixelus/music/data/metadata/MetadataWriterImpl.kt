@@ -9,7 +9,8 @@ import com.pixelus.music.data.result.DataError
 import com.pixelus.music.data.result.Result
 import org.jaudiotagger.audio.AudioFileIO
 import org.jaudiotagger.tag.FieldKey
-import org.jaudiotagger.tag.images.ArtworkFactory
+import org.jaudiotagger.tag.id3.valuepair.ImageFormats
+import org.jaudiotagger.tag.images.AndroidArtwork
 import org.jaudiotagger.tag.reference.PictureTypes
 import java.io.File
 import java.io.FileInputStream
@@ -73,15 +74,13 @@ class MetadataWriterImpl(
             metadata.lyrics?.let { tag.setField(FieldKey.LYRICS, it) }
 
             metadata.coverArtBytes?.let { bytes ->
-                tag.artworkList.forEach { tag.deleteArtwork(it) }
-                val mimeType = when {
-                    bytes.size > 4 && bytes[0] == 0x89.toByte() && bytes[1] == 0x50.toByte() -> "image/png"
-                    bytes.size > 2 && bytes[0] == 0xFF.toByte() && bytes[1] == 0xD8.toByte() -> "image/jpeg"
-                    else -> "image/jpeg"
-                }
-                val artwork = ArtworkFactory.createArtworkFromByteArray(bytes, mimeType)
-                artwork.pictureType = PictureTypes.DEFAULT_PICTURE_TYPE
-                tag.artworkList.add(artwork)
+                val cover = AndroidArtwork.createArtworkFromFile(file)
+                cover.binaryData = bytes
+                cover.mimeType = ImageFormats.getMimeTypeForBinarySignature(bytes)
+                cover.pictureType = PictureTypes.DEFAULT_ID
+                cover.description = ""
+                tag.deleteArtworkField()
+                tag.setField(cover)
             }
 
             audioFile.commit()

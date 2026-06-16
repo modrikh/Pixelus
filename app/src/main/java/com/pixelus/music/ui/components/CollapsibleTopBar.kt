@@ -75,7 +75,12 @@ fun ColumnWithCollapsibleTopBar(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(contentPadding),
-            contentAlignment = contentHorizontalAlignment
+            contentAlignment = when (contentHorizontalAlignment) {
+                Alignment.CenterHorizontally -> Alignment.Center
+                Alignment.Start -> Alignment.TopStart
+                Alignment.End -> Alignment.TopEnd
+                else -> Alignment.TopStart
+            }
         ) {
             content()
         }

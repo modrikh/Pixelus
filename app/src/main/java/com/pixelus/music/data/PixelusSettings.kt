@@ -1,7 +1,7 @@
 package com.pixelus.music.data
 
 import android.content.Context
-import androidx.compose.ui.text.TextAlign
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import com.pixelus.music.ui.components.Tab
@@ -272,5 +272,3 @@ class PixelusSettings(context: Context) {
 }
 
 enum class PlaylistSort { Name, SongCount, DateCreated }
-
-enum class SortOrder { ASC, DESC }

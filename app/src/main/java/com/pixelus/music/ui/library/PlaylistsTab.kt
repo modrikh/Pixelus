@@ -48,7 +48,7 @@ fun PlaylistsTab(
 
     val combined = remember(playlists, localPlaylists, playlistSort, playlistSortOrder) {
         val mapped = playlists.map { CombinedPlaylist(id = "media_${it.id}", name = it.name, songCount = it.songCount, localPlaylist = null) } +
-            localPlaylists.map { CombinedPlaylist(id = "local_${it.id}", name = it.name, songCount = it.songs.size, isLocal = true, localPlaylist = it) }
+            localPlaylists.map { CombinedPlaylist(id = "local_${it.id}", name = it.name, songCount = it.songCount, isLocal = true, localPlaylist = it) }
 
         val sorted = when (playlistSort) {
             PlaylistSort.Name -> mapped.sortedBy { it.name.lowercase() }

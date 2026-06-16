@@ -155,7 +155,7 @@ fun LibraryScreen(
                 .padding(padding)
         ) {
             when (selectedTab) {
-                Tab.Tracks -> SongsTab(songs = songs, onSongClick = onSongClick, onPlayNext = { song -> }, onAddToQueue = { song -> })
+                Tab.Tracks -> SongsTab(songs = songs, onSongClick = onSongClick)
                 Tab.Albums -> AlbumsTab(albums = albums, onAlbumClick = onAlbumClick)
                 Tab.Artists -> ArtistsTab(artists = artists, onArtistClick = onArtistClick)
                 Tab.Genres -> GenresTab(genres = genres, onGenreClick = onGenreClick)

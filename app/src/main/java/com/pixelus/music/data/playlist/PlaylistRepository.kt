@@ -54,12 +54,10 @@ class PlaylistRepository(context: Context) {
         saveAll(updated)
     }
 
-    fun addSongsToPlaylist(playlistId: Long, songs: List<Song>) {
+    fun addSongsToPlaylist(playlistId: Long, songIds: List<Long>) {
         val updated = _playlists.value.map {
-            if (it.id == playlistId) {
-                val existing = it.songs.toMutableSet()
-                it.copy(songs = (it.songs + songs).distinctBy { s -> s.id })
-            } else it
+            if (it.id == playlistId) it.copy(songIds = (it.songIds + songIds).distinct())
+            else it
         }
         _playlists.value = updated
         saveAll(updated)
@@ -67,16 +65,16 @@ class PlaylistRepository(context: Context) {
 
     fun removeSongFromPlaylist(playlistId: Long, songId: Long) {
         val updated = _playlists.value.map {
-            if (it.id == playlistId) it.copy(songs = it.songs.filter { s -> s.id != songId })
+            if (it.id == playlistId) it.copy(songIds = it.songIds.filter { id -> id != songId })
             else it
         }
         _playlists.value = updated
         saveAll(updated)
     }
 
-    fun reorderPlaylist(playlistId: Long, songs: List<Song>) {
+    fun reorderPlaylist(playlistId: Long, songIds: List<Long>) {
         val updated = _playlists.value.map {
-            if (it.id == playlistId) it.copy(songs = songs) else it
+            if (it.id == playlistId) it.copy(songIds = songIds) else it
         }
         _playlists.value = updated
         saveAll(updated)

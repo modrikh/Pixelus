@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
@@ -129,17 +130,15 @@ class MainActivity : ComponentActivity() {
                 val repoPlaylists by PixelusApp.playlistRepository.playlists.collectAsStateWithLifecycle()
                 LaunchedEffect(repoPlaylists) { localPlaylists = repoPlaylists }
 
-                if (!PixelusApp.settings.setupComplete) {
-                    SetupWizard(
-                        onComplete = {
-                            PixelusApp.settings.setupComplete = true
-                            scope.launch { loadAll() }
-                        }
-                    )
-                    return@setContent
-                }
-
                 when {
+                    !PixelusApp.settings.setupComplete -> {
+                        SetupWizard(
+                            onComplete = {
+                                PixelusApp.settings.setupComplete = true
+                                scope.launch { loadAll() }
+                            }
+                        )
+                    }
                     detailSongs.isNotEmpty() -> {
                         BackHandler { detailSongs = emptyList(); currentScreen = "library" }
                         DetailScreen(
@@ -190,8 +189,8 @@ class MainActivity : ComponentActivity() {
                             },
                             onLocalPlaylistClick = { localPlaylist ->
                                 detailTitle = localPlaylist.name
-                                detailSubtitle = "${localPlaylist.songs.size} songs"
-                                detailSongs = localPlaylist.songs
+                                detailSubtitle = "${localPlaylist.songCount} songs"
+                                detailSongs = songs.filter { it.id in localPlaylist.songIds }
                                 currentScreen = "detail"
                             },
                             onGenreClick = { genre ->
