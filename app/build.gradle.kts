@@ -100,4 +100,13 @@ dependencies {
 
     // JSON
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
+
+    // materialkolor for palette styles and animated DynamicMaterialTheme
+    implementation("com.materialkolor:material-kolor:2.0.0")
+
+    // jAudiotagger for metadata reading/writing
+    implementation("net.jthink:jaudiotagger:3.0.1")
+
+    // Reorderable for drag-reorder in queue and playlist editing
+    implementation("sh.calvin.reorderable:reorderable:2.4.2")
 }

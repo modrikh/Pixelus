@@ -78,6 +78,7 @@ class MusicPlayer(context: Context) {
                         isPlaying = exoPlayer.isPlaying,
                         positionMillis = 0
                     )
+                    savePlayerState()
                     loadLyrics(song)
                 }
             }
@@ -112,6 +113,8 @@ class MusicPlayer(context: Context) {
         exoPlayer.setMediaItems(mediaItems, startIndex, 0L)
         exoPlayer.prepare()
         exoPlayer.play()
+        _state.value = _state.value.copy(queue = songList, queueIndex = startIndex)
+        savePlayerState()
     }
 
     fun playSong(song: Song, songs: List<Song>) {
@@ -193,11 +196,99 @@ class MusicPlayer(context: Context) {
         _state.value = _state.value.copy(repeatMode = newMode)
     }
 
+    fun addToQueue(songs: List<Song>) {
+        val mediaItems = songs.map { song ->
+            MediaItem.Builder()
+                .setMediaId(song.id.toString())
+                .setUri(song.uri)
+                .setMediaMetadata(
+                    MediaMetadata.Builder()
+                        .setTitle(song.title)
+                        .setArtist(song.artist)
+                        .setAlbumTitle(song.album)
+                        .build()
+                )
+                .build()
+        }
+        val insertIndex = exoPlayer.mediaItemCount
+        exoPlayer.addMediaItems(insertIndex, mediaItems)
+        songList = songList + songs
+        _state.value = _state.value.copy(queue = songList)
+        savePlayerState()
+    }
+
+    fun playNext(songs: List<Song>) {
+        val mediaItems = songs.map { song ->
+            MediaItem.Builder()
+                .setMediaId(song.id.toString())
+                .setUri(song.uri)
+                .setMediaMetadata(
+                    MediaMetadata.Builder()
+                        .setTitle(song.title)
+                        .setArtist(song.artist)
+                        .setAlbumTitle(song.album)
+                        .build()
+                )
+                .build()
+        }
+        val insertIndex = exoPlayer.currentMediaItemIndex + 1
+        exoPlayer.addMediaItems(insertIndex, mediaItems)
+        songList = songList.take(insertIndex) + songs + songList.drop(insertIndex)
+        _state.value = _state.value.copy(queue = songList)
+    }
+
+    fun removeFromQueue(index: Int) {
+        if (index < 0 || index >= exoPlayer.mediaItemCount) return
+        if (index == exoPlayer.currentMediaItemIndex) return // don't remove current
+        exoPlayer.removeMediaItem(index)
+        songList = songList.toMutableList().apply { removeAt(index) }
+        _state.value = _state.value.copy(queue = songList)
+    }
+
+    fun reorderQueue(fromIndex: Int, toIndex: Int) {
+        if (fromIndex == toIndex) return
+        exoPlayer.moveMediaItem(fromIndex, toIndex)
+        val mutable = songList.toMutableList()
+        val item = mutable.removeAt(fromIndex)
+        mutable.add(toIndex, item)
+        songList = mutable
+        _state.value = _state.value.copy(queue = songList)
+    }
+
     fun updateProgress() {
         _state.value = _state.value.copy(
             currentPosition = exoPlayer.currentPosition.coerceAtLeast(0),
             duration = exoPlayer.duration.coerceAtLeast(0)
         )
+    }
+
+    private fun savePlayerState() {
+        try {
+            val stateManager = com.pixelus.music.PixelusApp.playerStateManager
+            stateManager.savedSongId = _state.value.currentSong?.id
+            stateManager.savedRepeatMode = _state.value.repeatMode
+            stateManager.savedShuffleMode = _state.value.shuffleEnabled
+        } catch (_: Exception) { }
+    }
+
+    fun restorePlayerState(allSongs: List<Song>) {
+        try {
+            val stateManager = com.pixelus.music.PixelusApp.playerStateManager
+            val songId = stateManager.savedSongId
+            if (songId != null) {
+                val song = allSongs.find { it.id == songId }
+                if (song != null) {
+                    val index = allSongs.indexOfFirst { it.id == songId }
+                    setQueue(allSongs, index.coerceAtLeast(0))
+                    exoPlayer.repeatMode = when (stateManager.savedRepeatMode) {
+                        RepeatMode.OFF -> Player.REPEAT_MODE_OFF
+                        RepeatMode.ALL -> Player.REPEAT_MODE_ALL
+                        RepeatMode.ONE -> Player.REPEAT_MODE_ONE
+                    }
+                    exoPlayer.shuffleModeEnabled = stateManager.savedShuffleMode
+                }
+            }
+        } catch (_: Exception) { }
     }
 
     fun release() {

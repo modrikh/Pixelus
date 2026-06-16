@@ -36,7 +36,9 @@ import kotlin.math.abs
 import androidx.media3.common.util.UnstableApi
 import com.pixelus.music.PixelusApp
 import com.pixelus.music.data.Appearance
+import com.pixelus.music.data.PlaylistSort
 import com.pixelus.music.data.Song
+import com.pixelus.music.data.SortOrder
 import com.pixelus.music.player.MusicService
 import com.pixelus.music.ui.theme.*
 import kotlinx.coroutines.Dispatchers
@@ -44,7 +46,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 private enum class SettingsPage {
-    MAIN, PLAYBACK, MUSIC_SCAN, THEME, LYRICS, PLAYLISTS, ABOUT
+    MAIN, PLAYBACK, MUSIC_SCAN, THEME, LYRICS, PLAYLISTS, TABS, ABOUT
 }
 
 @OptIn(ExperimentalMaterial3Api::class, UnstableApi::class)
@@ -109,6 +111,10 @@ fun SettingsScreen(
                 settings = settings,
                 songs = songs,
                 context = context,
+                onBack = { currentPage = SettingsPage.MAIN }
+            )
+            SettingsPage.TABS -> TabsSettingsPage(
+                settings = settings,
                 onBack = { currentPage = SettingsPage.MAIN }
             )
             SettingsPage.ABOUT -> AboutPage(
@@ -225,6 +231,18 @@ private fun MainSettingsPage(
                         title = "Playlists",
                         subtitle = "Import, grid view",
                         onClick = { onNavigate(SettingsPage.PLAYLISTS) }
+                    )
+                }
+            }
+
+            if (showSection("Tabs", listOf("tabs", "library tabs", "default tab", "tab order"))) {
+                SectionHeader("Tabs")
+                if (q.isEmpty() || "tabs".contains(q) || "default tab".contains(q) || "tab order".contains(q) || "tab visibility".contains(q)) {
+                    SettingsItem(
+                        icon = Icons.Default.Tab,
+                        title = "Tabs",
+                        subtitle = "Default tab, reorder tabs",
+                        onClick = { onNavigate(SettingsPage.TABS) }
                     )
                 }
             }
@@ -561,6 +579,38 @@ private fun ThemeSettingsPage(
 
         ExternalSpacer()
 
+        val palette by settings.paletteStyle.collectAsState()
+        val paletteOptions = listOf(
+            "Tonal Spot", "Neutral", "Vibrant", "Expressive",
+            "Rainbow", "Fruit Salad", "Monochrome", "Fidelity", "Content"
+        )
+        Text(
+            "Palette Style",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.SemiBold,
+            color = OnBackground,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            paletteOptions.forEachIndexed { index, label ->
+                val isSelected = palette.ordinal == index
+                FilterChip(
+                    selected = isSelected,
+                    onClick = { settings.updatePaletteStyle(com.pixelus.music.ui.theme.PaletteStyle.entries[index]) },
+                    label = { Text(label, style = MaterialTheme.typography.labelSmall) },
+                    colors = FilterChipDefaults.filterChipColors(
+                        selectedContainerColor = Primary,
+                        selectedLabelColor = OnPrimary
+                    )
+                )
+            }
+        }
+
+        ExternalSpacer()
+
         val useDynamic by settings.useDynamicColor.collectAsState()
         SettingSwitch(
             icon = Icons.Default.AutoAwesome,
@@ -616,6 +666,81 @@ private fun LyricsSettingsPage(
                 autoFetch = it
             }
         )
+
+        ExternalSpacer()
+
+        Text(
+            "Typography",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.SemiBold,
+            color = OnBackground,
+            modifier = Modifier.padding(bottom = 4.dp)
+        )
+
+        var fontSize by remember { mutableStateOf(settings.lyricsFontSize) }
+        SettingSlider(
+            title = "Font Size",
+            value = fontSize.value,
+            valueDisplay = "${fontSize.value.toInt()}sp",
+            valueRange = 14f..48f,
+            onValueChange = { fontSize = it.sp; settings.lyricsFontSize = fontSize }
+        )
+
+        var fontWeight by remember { mutableStateOf(settings.lyricsFontWeight.toFloat()) }
+        SettingSlider(
+            title = "Font Weight",
+            value = fontWeight,
+            valueDisplay = "${fontWeight.toInt()}",
+            valueRange = 300f..900f,
+            steps = 5,
+            onValueChange = { fontWeight = it; settings.lyricsFontWeight = it.toInt() }
+        )
+
+        var lineHeight by remember { mutableStateOf(settings.lyricsLineHeight) }
+        SettingSlider(
+            title = "Line Height",
+            value = lineHeight.value,
+            valueDisplay = "${lineHeight.value.toInt()}sp",
+            valueRange = 20f..60f,
+            onValueChange = { lineHeight = it.sp; settings.lyricsLineHeight = lineHeight }
+        )
+
+        var letterSpacing by remember { mutableStateOf(settings.lyricsLetterSpacing) }
+        SettingSlider(
+            title = "Letter Spacing",
+            value = letterSpacing.value,
+            valueDisplay = "${"%.1f".format(letterSpacing.value)}sp",
+            valueRange = 0f..8f,
+            onValueChange = { letterSpacing = it.sp; settings.lyricsLetterSpacing = letterSpacing }
+        )
+
+        val alignmentOptions = listOf("Start", "Center", "End")
+        val currentAlignment = when (settings.lyricsAlignment) {
+            androidx.compose.ui.text.style.TextAlign.Center -> 1
+            androidx.compose.ui.text.style.TextAlign.End -> 2
+            else -> 0
+        }
+        SettingSegmentOptions(
+            icon = Icons.Default.FormatAlignLeft,
+            title = "Alignment",
+            subtitle = "Text alignment for lyrics display",
+            selectedIndex = currentAlignment,
+            options = alignmentOptions,
+            onSelect = {
+                settings.lyricsAlignment = when (it) {
+                    1 -> androidx.compose.ui.text.style.TextAlign.Center
+                    2 -> androidx.compose.ui.text.style.TextAlign.End
+                    else -> androidx.compose.ui.text.style.TextAlign.Start
+                }
+            }
+        )
+
+        FilledTonalButton(
+            onClick = { settings.resetLyricsStyle() },
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        ) {
+            Text("Reset to Defaults")
+        }
     }
 }
 
@@ -679,6 +804,49 @@ private fun PlaylistsSettingsPage(
 
         ExternalSpacer()
 
+        val replaceSearch by settings.replaceSearchWithFilter.collectAsState()
+        SettingSwitch(
+            icon = Icons.Default.FilterList,
+            title = "Replace Search with Filter",
+            subtitle = "Use filter chips instead of text search in library",
+            checked = replaceSearch,
+            onCheckedChange = settings::updateReplaceSearchWithFilter
+        )
+
+        ExternalSpacer()
+
+        Text(
+            "Sort Playlists By",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.SemiBold,
+            color = OnBackground,
+            modifier = Modifier.padding(bottom = 4.dp)
+        )
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            PlaylistSort.entries.forEach { sort ->
+                val isSelected = settings.playlistSort == sort
+                FilterChip(
+                    selected = isSelected,
+                    onClick = { settings.playlistSort = sort },
+                    label = { Text(sort.name) }
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(4.dp))
+        val sortAsc = settings.playlistSortOrder == com.pixelus.music.data.SortOrder.ASC
+        SettingSwitch(
+            icon = Icons.Default.Sort,
+            title = "Ascending Order",
+            subtitle = "Sort playlists in ascending order",
+            checked = sortAsc,
+            onCheckedChange = {
+                settings.playlistSortOrder = if (it) com.pixelus.music.data.SortOrder.ASC
+                else com.pixelus.music.data.SortOrder.DESC
+            }
+        )
+
+        ExternalSpacer()
+
         SettingIconButton(
             icon = Icons.Default.FileUpload,
             title = "Import Playlist",
@@ -698,6 +866,90 @@ private fun PlaylistsSettingsPage(
                         MaterialTheme.colorScheme.error else Primary,
                 modifier = Modifier.padding(horizontal = 4.dp)
             )
+        }
+    }
+}
+
+// ── TABS SETTINGS ──────────────────────────────────────────────────
+
+@Composable
+private fun TabsSettingsPage(
+    settings: com.pixelus.music.data.PixelusSettings,
+    onBack: () -> Unit
+) {
+    SettingsSubPage(
+        title = "Tabs",
+        onBack = onBack
+    ) {
+        val tabs by settings.tabOrder.collectAsState()
+
+        Text(
+            "Default Tab",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.SemiBold,
+            color = OnBackground,
+            modifier = Modifier.padding(bottom = 4.dp)
+        )
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            tabs.forEach { tab ->
+                val isDefault = settings.defaultTab == tab
+                FilterChip(
+                    selected = isDefault,
+                    onClick = { settings.defaultTab = tab },
+                    label = { Text(tab.label) }
+                )
+            }
+        }
+
+        ExternalSpacer()
+
+        Text(
+            "Tab Order (drag to reorder)",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.SemiBold,
+            color = OnBackground,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        tabs.forEachIndexed { index, tab ->
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(Icons.Default.DragIndicator, contentDescription = null, tint = TextSecondary)
+                Spacer(modifier = Modifier.width(12.dp))
+                Text(
+                    "${index + 1}. ${tab.label}",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = OnBackground,
+                    modifier = Modifier.weight(1f)
+                )
+                if (tabs.size > 1) {
+                    if (index > 0) {
+                        IconButton(onClick = {
+                            val mutable = tabs.toMutableList()
+                            val temp = mutable[index]
+                            mutable[index] = mutable[index - 1]
+                            mutable[index - 1] = temp
+                            settings.updateTabOrder(mutable)
+                        }) {
+                            Icon(Icons.Default.KeyboardArrowUp, contentDescription = "Move up")
+                        }
+                    }
+                    if (index < tabs.size - 1) {
+                        IconButton(onClick = {
+                            val mutable = tabs.toMutableList()
+                            val temp = mutable[index]
+                            mutable[index] = mutable[index + 1]
+                            mutable[index + 1] = temp
+                            settings.updateTabOrder(mutable)
+                        }) {
+                            Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Move down")
+                        }
+                    }
+                }
+            }
         }
     }
 }

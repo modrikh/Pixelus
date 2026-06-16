@@ -321,6 +321,7 @@ private fun SyncedLyricsView(lyrics: Lyrics, currentPosition: Long) {
     val listState = rememberLazyListState()
     val activeIndex = lyrics.lines.indexOfLast { it.timestampMs <= currentPosition }
         .coerceAtLeast(0)
+    val settings = com.pixelus.music.PixelusApp.settings
 
     LaunchedEffect(activeIndex) {
         if (activeIndex > 0) {
@@ -339,10 +340,12 @@ private fun SyncedLyricsView(lyrics: Lyrics, currentPosition: Long) {
                 text = line.text,
                 style = MaterialTheme.typography.titleLarge.copy(
                     fontWeight = if (isActive) FontWeight.Bold else FontWeight.Normal,
-                    fontSize = if (isActive) 20.sp else 16.sp,
+                    fontSize = if (isActive) settings.lyricsFontSize else settings.lyricsFontSize.times(0.8f),
+                    lineHeight = settings.lyricsLineHeight,
+                    letterSpacing = settings.lyricsLetterSpacing,
                     color = if (isActive) OnBackground else TextSecondary
                 ),
-                textAlign = TextAlign.Center,
+                textAlign = settings.lyricsAlignment,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp)
@@ -353,11 +356,17 @@ private fun SyncedLyricsView(lyrics: Lyrics, currentPosition: Long) {
 
 @Composable
 private fun PlainLyricsView(lyrics: Lyrics) {
+    val settings = com.pixelus.music.PixelusApp.settings
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         itemsIndexed(lyrics.lines) { _, line ->
             Text(
                 text = line.text,
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    fontSize = settings.lyricsFontSize,
+                    lineHeight = settings.lyricsLineHeight,
+                    letterSpacing = settings.lyricsLetterSpacing
+                ),
+                textAlign = settings.lyricsAlignment,
                 color = OnBackground,
                 modifier = Modifier
                     .fillMaxWidth()

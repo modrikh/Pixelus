@@ -48,11 +48,14 @@ class MainActivity : ComponentActivity() {
             var dominantColor by remember { mutableStateOf<Color?>(null) }
             val effectiveDominantColor = if (useAlbumArtColor) dominantColor else null
 
+            val paletteStyle by settings.paletteStyle.collectAsStateWithLifecycle()
+
             PixelusMusicTheme(
                 dominantColor = effectiveDominantColor,
                 appearance = appearance,
                 useDynamicColor = useDynamicColor,
-                amoledDarkMode = amoledMode
+                amoledDarkMode = amoledMode,
+                paletteStyle = paletteStyle
             ) {
                 var allSongs by remember { mutableStateOf(emptyList<Song>()) }
                 var songs by remember { mutableStateOf(emptyList<Song>()) }
@@ -117,6 +120,7 @@ class MainActivity : ComponentActivity() {
 
                 LaunchedEffect(Unit) {
                     loadAll()
+                    player.restorePlayerState(allSongs)
                 }
 
                 when {

@@ -6,14 +6,27 @@ import android.app.NotificationManager
 import android.os.Build
 import com.pixelus.music.data.MusicScanner
 import com.pixelus.music.data.PixelusSettings
+import com.pixelus.music.data.PlayerStateManager
+import com.pixelus.music.data.playlist.PlaylistRepository
+import com.pixelus.music.data.metadata.MetadataWriterImpl
 import com.pixelus.music.player.MusicService
 import com.pixelus.music.widget.MusicServiceHolder
 
 class PixelusApp : Application() {
 
+    lateinit var playlistRepository: PlaylistRepository
+        private set
+    lateinit var metadataWriter: MetadataWriterImpl
+        private set
+    lateinit var playerStateManager: PlayerStateManager
+        private set
+
     override fun onCreate() {
         super.onCreate()
         settings = PixelusSettings(this)
+        playlistRepository = PlaylistRepository(this)
+        metadataWriter = MetadataWriterImpl(this)
+        playerStateManager = PlayerStateManager(this)
         createNotificationChannel()
         MusicService.initPlayer(this)
         MusicServiceHolder.init(this, MusicService.player)

@@ -1,6 +1,11 @@
 package com.pixelus.music.data
 
 import android.content.Context
+import androidx.compose.ui.text.TextAlign
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.sp
+import com.pixelus.music.ui.components.Tab
+import com.pixelus.music.ui.theme.PaletteStyle
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -27,16 +32,29 @@ class PixelusSettings(context: Context) {
     private val useDynamicColorKey = "use_dynamic_color"
     private val useAlbumArtColorKey = "use_album_art_color"
     private val amoledDarkThemeKey = "amoled_dark_theme"
+    private val paletteStyleKey = "palette_style"
 
     // Lyrics
     private val lyricsAutoFetchKey = "lyrics_auto_fetch"
+    private val lyricsFontSizeKey = "lyrics_font_size"
+    private val lyricsFontWeightKey = "lyrics_font_weight"
+    private val lyricsLineHeightKey = "lyrics_line_height"
+    private val lyricsLetterSpacingKey = "lyrics_letter_spacing"
+    private val lyricsAlignmentKey = "lyrics_alignment"
 
     // Playlists
     private val gridPlaylistsKey = "grid_playlists"
 
+    // Tabs
+    private val tabOrderKey = "tab_order"
+    private val defaultTabKey = "default_tab"
+    private val replaceSearchWithFilterKey = "replace_search_with_filter"
+
     // Sorting
     private val trackSortKey = "track_sort"
     private val trackSortOrderKey = "track_sort_order"
+    private val playlistSortKey = "playlist_sort"
+    private val playlistSortOrderKey = "playlist_sort_order"
 
     private val _trackSort = MutableStateFlow(
         SongSort.fromString(prefs.getString(trackSortKey, SongSort.TITLE.name) ?: SongSort.TITLE.name)
@@ -141,11 +159,66 @@ class PixelusSettings(context: Context) {
         prefs.edit().putBoolean(amoledDarkThemeKey, value).apply()
     }
 
+    // --- Theme ---
+
+    private val _paletteStyle = MutableStateFlow(
+        PaletteStyle.entries[prefs.getInt(paletteStyleKey, 0)]
+    )
+    val paletteStyle = _paletteStyle.asStateFlow()
+    fun updatePaletteStyle(value: PaletteStyle) {
+        _paletteStyle.update { value }
+        prefs.edit().putInt(paletteStyleKey, value.ordinal).apply()
+    }
+
     // --- Lyrics ---
 
     var lyricsAutoFetch: Boolean
         get() = prefs.getBoolean(lyricsAutoFetchKey, true)
         set(value) { prefs.edit().putBoolean(lyricsAutoFetchKey, value).apply() }
+
+    var lyricsFontSize: TextUnit
+        get() = prefs.getFloat(lyricsFontSizeKey, 28f).sp
+        set(value) { prefs.edit().putFloat(lyricsFontSizeKey, value.value).apply() }
+
+    var lyricsFontWeight: Int
+        get() = prefs.getInt(lyricsFontWeightKey, 600)
+        set(value) { prefs.edit().putInt(lyricsFontWeightKey, value).apply() }
+
+    var lyricsLineHeight: TextUnit
+        get() = prefs.getFloat(lyricsLineHeightKey, 32f).sp
+        set(value) { prefs.edit().putFloat(lyricsLineHeightKey, value.value).apply() }
+
+    var lyricsLetterSpacing: TextUnit
+        get() = prefs.getFloat(lyricsLetterSpacingKey, 0f).sp
+        set(value) { prefs.edit().putFloat(lyricsLetterSpacingKey, value.value).apply() }
+
+    var lyricsAlignment: TextAlign
+        get() = when (prefs.getInt(lyricsAlignmentKey, 0)) {
+            1 -> TextAlign.Center
+            2 -> TextAlign.End
+            else -> TextAlign.Start
+        }
+        set(value) {
+            prefs.edit().putInt(
+                lyricsAlignmentKey,
+                when (value) {
+                    TextAlign.Center -> 1
+                    TextAlign.End -> 2
+                    else -> 0
+                }
+            ).apply()
+        }
+
+    fun resetLyricsStyle() {
+        with(prefs.edit()) {
+            remove(lyricsFontSizeKey)
+            remove(lyricsFontWeightKey)
+            remove(lyricsLineHeightKey)
+            remove(lyricsLetterSpacingKey)
+            remove(lyricsAlignmentKey)
+            apply()
+        }
+    }
 
     // --- Playlists ---
 
@@ -155,4 +228,42 @@ class PixelusSettings(context: Context) {
         _gridPlaylists.update { value }
         prefs.edit().putBoolean(gridPlaylistsKey, value).apply()
     }
+
+    // --- Tabs ---
+
+    private val _tabOrder = MutableStateFlow(
+        prefs.getString(tabOrderKey, null)?.split(";")?.mapNotNull {
+            try { Tab.valueOf(it) } catch (_: Exception) { null }
+        } ?: Tab.entries.toList()
+    )
+    val tabOrder = _tabOrder.asStateFlow()
+    fun updateTabOrder(tabs: List<Tab>) {
+        _tabOrder.update { tabs }
+        prefs.edit().putString(tabOrderKey, tabs.joinToString(";") { it.name }).apply()
+    }
+
+    var defaultTab: Tab
+        get() = Tab.entries[prefs.getInt(defaultTabKey, 0)]
+        set(value) { prefs.edit().putInt(defaultTabKey, value.ordinal).apply() }
+
+    private val _replaceSearchWithFilter = MutableStateFlow(prefs.getBoolean(replaceSearchWithFilterKey, false))
+    val replaceSearchWithFilter = _replaceSearchWithFilter.asStateFlow()
+    fun updateReplaceSearchWithFilter(value: Boolean) {
+        _replaceSearchWithFilter.update { value }
+        prefs.edit().putBoolean(replaceSearchWithFilterKey, value).apply()
+    }
+
+    // --- Sorting ---
+
+    var playlistSort: PlaylistSort
+        get() = PlaylistSort.entries[prefs.getInt(playlistSortKey, 0)]
+        set(value) { prefs.edit().putInt(playlistSortKey, value.ordinal).apply() }
+
+    var playlistSortOrder: SortOrder
+        get() = SortOrder.entries[prefs.getInt(playlistSortOrderKey, 0)]
+        set(value) { prefs.edit().putInt(playlistSortOrderKey, value.ordinal).apply() }
 }
+
+enum class PlaylistSort { Name, SongCount, DateCreated }
+
+enum class SortOrder { ASC, DESC }
