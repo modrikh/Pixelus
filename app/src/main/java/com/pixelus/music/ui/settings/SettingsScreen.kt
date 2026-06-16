@@ -1,6 +1,9 @@
 package com.pixelus.music.ui.settings
 
+import android.content.Intent
+import android.media.audiofx.AudioEffect
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -12,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -26,6 +30,8 @@ fun SettingsScreen(
     onStartSleepTimer: (Long) -> Unit = {},
     onStopSleepTimer: () -> Unit = {}
 ) {
+    var dialog by remember { mutableStateOf<SettingsDialog?>(null) }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -72,7 +78,8 @@ fun SettingsScreen(
             SettingsItem(
                 icon = Icons.Default.Tune,
                 title = "Equalizer",
-                subtitle = "Adjust bass, treble, and more"
+                subtitle = "Adjust bass, treble, and more",
+                onClick = { dialog = SettingsDialog.EQUALIZER }
             )
 
             SettingsDivider()
@@ -80,7 +87,8 @@ fun SettingsScreen(
             SettingsItem(
                 icon = Icons.Default.AudioFile,
                 title = "Audio Quality",
-                subtitle = "Gapless playback, crossfade"
+                subtitle = "Gapless playback, crossfade",
+                onClick = { dialog = SettingsDialog.AUDIO_QUALITY }
             )
 
             SettingsDivider()
@@ -90,7 +98,8 @@ fun SettingsScreen(
             SettingsItem(
                 icon = Icons.Default.Palette,
                 title = "Theme",
-                subtitle = "Dynamic color, dark mode"
+                subtitle = "Dynamic color, dark mode",
+                onClick = { dialog = SettingsDialog.THEME }
             )
 
             SettingsDivider()
@@ -98,7 +107,8 @@ fun SettingsScreen(
             SettingsItem(
                 icon = Icons.Default.Lyrics,
                 title = "Lyrics",
-                subtitle = "Background fetch, sync offset"
+                subtitle = "Background fetch, sync offset",
+                onClick = { dialog = SettingsDialog.LYRICS }
             )
 
             SettingsDivider()
@@ -108,7 +118,8 @@ fun SettingsScreen(
             SettingsItem(
                 icon = Icons.Default.Folder,
                 title = "Music Folders",
-                subtitle = "Choose which folders to scan"
+                subtitle = "Choose which folders to scan",
+                onClick = { dialog = SettingsDialog.MUSIC_FOLDERS }
             )
 
             SettingsDivider()
@@ -116,7 +127,8 @@ fun SettingsScreen(
             SettingsItem(
                 icon = Icons.Default.Storage,
                 title = "Storage & Cache",
-                subtitle = "Manage cached album art"
+                subtitle = "Manage cached album art",
+                onClick = { dialog = SettingsDialog.STORAGE }
             )
 
             Spacer(modifier = Modifier.height(32.dp))
@@ -138,6 +150,199 @@ fun SettingsScreen(
             )
         }
     }
+
+    dialog?.let { showDialog(it) { dialog = null } }
+}
+
+private enum class SettingsDialog {
+    EQUALIZER, AUDIO_QUALITY, THEME, LYRICS, MUSIC_FOLDERS, STORAGE
+}
+
+@Composable
+private fun showDialog(type: SettingsDialog, onDismiss: () -> Unit) {
+    val context = LocalContext.current
+
+    when (type) {
+        SettingsDialog.EQUALIZER -> {
+            AlertDialog(
+                onDismissRequest = onDismiss,
+                icon = { Icon(Icons.Default.Tune, contentDescription = null, tint = Primary) },
+                title = { Text("Equalizer") },
+                text = {
+                    Text("Open your device's system equalizer to adjust bass, treble, and other audio effects.")
+                },
+                confirmButton = {
+                    TextButton(onClick = {
+                        val intent = Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL).apply {
+                            putExtra(AudioEffect.EXTRA_AUDIO_SESSION, 0)
+                            putExtra(AudioEffect.EXTRA_CONTENT_TYPE, AudioEffect.CONTENT_TYPE_MUSIC)
+                        }
+                        if (intent.resolveActivity(context.packageManager) != null) {
+                            context.startActivity(intent)
+                        }
+                        onDismiss()
+                    }) {
+                        Text("Open Equalizer", color = Primary)
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = onDismiss) { Text("Cancel") }
+                },
+                containerColor = Surface,
+                titleContentColor = OnSurface,
+                textContentColor = TextSecondary
+            )
+        }
+
+        SettingsDialog.AUDIO_QUALITY -> {
+            var gapless by remember { mutableStateOf(true) }
+            AlertDialog(
+                onDismissRequest = onDismiss,
+                icon = { Icon(Icons.Default.AudioFile, contentDescription = null, tint = Primary) },
+                title = { Text("Audio Quality") },
+                text = {
+                    Column {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { gapless = !gapless }
+                                .padding(vertical = 8.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Checkbox(
+                                checked = gapless,
+                                onCheckedChange = { gapless = it },
+                                colors = CheckboxDefaults.colors(checkedColor = Primary)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text("Gapless playback", color = OnSurface)
+                        }
+                    }
+                },
+                confirmButton = {
+                    TextButton(onClick = onDismiss) { Text("Done", color = Primary) }
+                },
+                containerColor = Surface,
+                titleContentColor = OnSurface,
+                textContentColor = TextSecondary
+            )
+        }
+
+        SettingsDialog.THEME -> {
+            var selected by remember { mutableStateOf(0) }
+            AlertDialog(
+                onDismissRequest = onDismiss,
+                icon = { Icon(Icons.Default.Palette, contentDescription = null, tint = Primary) },
+                title = { Text("Theme") },
+                text = {
+                    Column {
+                        ThemeOption("Dynamic (Material You)", 0, selected) { selected = it }
+                        ThemeOption("Dark", 1, selected) { selected = it }
+                        ThemeOption("Light", 2, selected) { selected = it }
+                    }
+                },
+                confirmButton = {
+                    TextButton(onClick = onDismiss) { Text("Done", color = Primary) }
+                },
+                containerColor = Surface,
+                titleContentColor = OnSurface,
+                textContentColor = TextSecondary
+            )
+        }
+
+        SettingsDialog.LYRICS -> {
+            var bgFetch by remember { mutableStateOf(true) }
+            AlertDialog(
+                onDismissRequest = onDismiss,
+                icon = { Icon(Icons.Default.Lyrics, contentDescription = null, tint = Primary) },
+                title = { Text("Lyrics") },
+                text = {
+                    Column {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { bgFetch = !bgFetch }
+                                .padding(vertical = 8.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Checkbox(
+                                checked = bgFetch,
+                                onCheckedChange = { bgFetch = it },
+                                colors = CheckboxDefaults.colors(checkedColor = Primary)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text("Auto-fetch from LRCLIB", color = OnSurface)
+                        }
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            "When enabled, lyrics are loaded from lrclib.net if not found locally.",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = TextSecondary
+                        )
+                    }
+                },
+                confirmButton = {
+                    TextButton(onClick = onDismiss) { Text("Done", color = Primary) }
+                },
+                containerColor = Surface,
+                titleContentColor = OnSurface,
+                textContentColor = TextSecondary
+            )
+        }
+
+        SettingsDialog.MUSIC_FOLDERS -> {
+            AlertDialog(
+                onDismissRequest = onDismiss,
+                icon = { Icon(Icons.Default.Folder, contentDescription = null, tint = Primary) },
+                title = { Text("Music Folders") },
+                text = {
+                    Text("Pixelus Music scans all audio files on your device. Folder filtering will be available in a future update.")
+                },
+                confirmButton = {
+                    TextButton(onClick = onDismiss) { Text("OK", color = Primary) }
+                },
+                containerColor = Surface,
+                titleContentColor = OnSurface,
+                textContentColor = TextSecondary
+            )
+        }
+
+        SettingsDialog.STORAGE -> {
+            AlertDialog(
+                onDismissRequest = onDismiss,
+                icon = { Icon(Icons.Default.Storage, contentDescription = null, tint = Primary) },
+                title = { Text("Storage & Cache") },
+                text = {
+                    Text("Album art is loaded on demand and cached by the system. No manual cache management is needed.")
+                },
+                confirmButton = {
+                    TextButton(onClick = onDismiss) { Text("OK", color = Primary) }
+                },
+                containerColor = Surface,
+                titleContentColor = OnSurface,
+                textContentColor = TextSecondary
+            )
+        }
+    }
+}
+
+@Composable
+private fun ThemeOption(label: String, index: Int, selected: Int, onSelect: (Int) -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onSelect(index) }
+            .padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        RadioButton(
+            selected = selected == index,
+            onClick = { onSelect(index) },
+            colors = RadioButtonDefaults.colors(selectedColor = Primary)
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(label, color = OnSurface)
+    }
 }
 
 @Composable
@@ -157,11 +362,13 @@ private fun SettingsItem(
     icon: androidx.compose.ui.graphics.vector.ImageVector,
     title: String,
     subtitle: String,
+    onClick: () -> Unit = {},
     trailing: @Composable (() -> Unit)? = null
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable(onClick = onClick)
             .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

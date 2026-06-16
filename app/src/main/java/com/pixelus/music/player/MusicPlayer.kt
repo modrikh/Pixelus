@@ -120,8 +120,10 @@ class MusicPlayer(context: Context) {
 
     fun startSleepTimer(durationMs: Long) {
         sleepTimer.start(durationMs) {
-            exoPlayer.pause()
-            _state.value = _state.value.copy(sleepTimerActive = false, sleepTimerRemaining = 0)
+            scope.launch(Dispatchers.Main) {
+                exoPlayer.pause()
+                _state.value = _state.value.copy(sleepTimerActive = false, sleepTimerRemaining = 0)
+            }
         }
         _state.value = _state.value.copy(sleepTimerActive = true, sleepTimerRemaining = durationMs)
         scope.launch {

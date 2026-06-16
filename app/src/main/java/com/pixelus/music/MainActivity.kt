@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        ContextCompat.startForegroundService(this, Intent(this, MusicService::class.java))
+        startService(Intent(this, MusicService::class.java))
         requestAudioPermission()
 
         setContent {
