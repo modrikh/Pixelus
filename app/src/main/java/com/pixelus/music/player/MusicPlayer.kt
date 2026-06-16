@@ -255,6 +255,13 @@ class MusicPlayer(context: Context) {
         _state.value = _state.value.copy(queue = songList)
     }
 
+    fun playAtIndex(index: Int) {
+        if (index in songList.indices) {
+            exoPlayer.seekToDefaultPosition(index)
+            exoPlayer.play()
+        }
+    }
+
     fun updateProgress() {
         _state.value = _state.value.copy(
             currentPosition = exoPlayer.currentPosition.coerceAtLeast(0),

@@ -1,6 +1,7 @@
 package com.pixelus.music.ui.library
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,6 +11,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDownward
 import androidx.compose.material.icons.filled.ArrowUpward
+import androidx.compose.material.icons.filled.PlaylistAdd
+import androidx.compose.material.icons.filled.SkipNext
 import androidx.compose.material.icons.filled.Sort
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.*
@@ -21,12 +24,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.pixelus.music.PixelusApp
 import com.pixelus.music.R
 import com.pixelus.music.data.Song
 import com.pixelus.music.data.SongSort
+import com.pixelus.music.player.MusicPlayer
 import com.pixelus.music.ui.theme.*
 import com.pixelus.music.util.formatDuration
 
@@ -66,10 +71,106 @@ fun SongsTab(
             contentPadding = PaddingValues(bottom = 80.dp)
         ) {
             itemsIndexed(sortedSongs) { index, song ->
-                SongItem(
+                SongItemWithMenu(
                     song = song,
                     onClick = { onSongClick(song, sortedSongs) }
                 )
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun SongItemWithMenu(
+    song: Song,
+    onClick: () -> Unit
+) {
+    var showMenu by remember { mutableStateOf(false) }
+
+    Surface(
+        color = Surface,
+        shape = RoundedCornerShape(12.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 12.dp, vertical = 4.dp)
+            .combinedClickable(
+                onClick = onClick,
+                onLongClick = { showMenu = true }
+            )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            AsyncImage(
+                model = song.albumArtUri,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(48.dp)
+                    .clip(RoundedCornerShape(4.dp)),
+                contentScale = ContentScale.Crop,
+                error = painterResource(R.drawable.ic_music_note)
+            )
+
+            Spacer(modifier = Modifier.width(12.dp))
+
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = song.title,
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Medium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    text = "${song.artist} \u2022 ${song.album}",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = TextSecondary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+
+            Text(
+                text = formatDuration(song.duration),
+                style = MaterialTheme.typography.labelSmall,
+                color = TextSecondary
+            )
+
+            Box {
+                DropdownMenu(
+                    expanded = showMenu,
+                    onDismissRequest = { showMenu = false },
+                    offset = DpOffset(x = (-100).dp, y = 0.dp)
+                ) {
+                    DropdownMenuItem(
+                        text = { Text("Play Next") },
+                        onClick = {
+                            showMenu = false
+                            runCatching {
+                                com.pixelus.music.player.MusicService.player.playNext(listOf(song))
+                            }
+                        },
+                        leadingIcon = {
+                            Icon(Icons.Default.SkipNext, contentDescription = null)
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Add to Queue") },
+                        onClick = {
+                            showMenu = false
+                            runCatching {
+                                com.pixelus.music.player.MusicService.player.addToQueue(listOf(song))
+                            }
+                        },
+                        leadingIcon = {
+                            Icon(Icons.Default.PlaylistAdd, contentDescription = null)
+                        }
+                    )
+                }
             }
         }
     }
@@ -148,61 +249,4 @@ private fun sortSongs(songs: List<Song>, sort: SongSort, ascending: Boolean): Li
         SongSort.YEAR -> songs.sortedBy { it.year }
     }
     return if (ascending) sorted else sorted.reversed()
-}
-
-@Composable
-private fun SongItem(
-    song: Song,
-    onClick: () -> Unit
-) {
-    Surface(
-        color = Surface,
-        shape = RoundedCornerShape(12.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 12.dp, vertical = 4.dp)
-            .clickable(onClick = onClick)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            AsyncImage(
-                model = song.albumArtUri,
-                contentDescription = null,
-                modifier = Modifier
-                    .size(48.dp)
-                    .clip(RoundedCornerShape(4.dp)),
-                contentScale = ContentScale.Crop,
-                error = painterResource(R.drawable.ic_music_note)
-            )
-
-            Spacer(modifier = Modifier.width(12.dp))
-
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = song.title,
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontWeight = FontWeight.Medium,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Text(
-                    text = "${song.artist} \u2022 ${song.album}",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = TextSecondary,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
-
-            Text(
-                text = formatDuration(song.duration),
-                style = MaterialTheme.typography.labelSmall,
-                color = TextSecondary
-            )
-        }
-    }
 }

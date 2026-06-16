@@ -30,8 +30,10 @@ import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.pixelus.music.data.Lyrics
+import com.pixelus.music.player.MusicService
 import com.pixelus.music.player.PlayerState
 import com.pixelus.music.player.RepeatMode
+import com.pixelus.music.ui.components.QueueSheet
 import com.pixelus.music.ui.theme.*
 import com.pixelus.music.util.formatDuration
 
@@ -51,6 +53,7 @@ fun NowPlayingScreen(
 ) {
     val song = playerState.currentSong ?: return
     var showLyrics by remember { mutableStateOf(false) }
+    var showQueue by remember { mutableStateOf(false) }
     val hasLyrics = playerState.lyrics != null || playerState.lyricsLoading
 
     val context = LocalContext.current
@@ -116,6 +119,7 @@ fun NowPlayingScreen(
                 hasLyrics = hasLyrics,
                 showLyrics = showLyrics,
                 onToggleLyrics = { showLyrics = !showLyrics },
+                onOpenQueue = { showQueue = true },
                 sleepTimerActive = playerState.sleepTimerActive,
                 sleepTimerRemaining = playerState.sleepTimerRemaining,
                 onStartSleepTimer = onStartSleepTimer,
@@ -161,6 +165,23 @@ fun NowPlayingScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
         }
+
+        if (showQueue) {
+            QueueSheet(
+                queue = playerState.queue,
+                currentIndex = playerState.queueIndex,
+                onClose = { showQueue = false },
+                onTrackClick = { index ->
+                    MusicService.player.playAtIndex(index)
+                },
+                onRemoveFromQueue = { index ->
+                    MusicService.player.removeFromQueue(index)
+                },
+                onReorder = { from, to ->
+                    MusicService.player.reorderQueue(from, to)
+                }
+            )
+        }
     }
 }
 
@@ -171,6 +192,7 @@ private fun TopBar(
     hasLyrics: Boolean,
     showLyrics: Boolean,
     onToggleLyrics: () -> Unit,
+    onOpenQueue: () -> Unit = {},
     sleepTimerActive: Boolean = false,
     sleepTimerRemaining: Long = 0,
     onStartSleepTimer: (Long) -> Unit = {},
@@ -206,6 +228,13 @@ private fun TopBar(
                     tint = if (showLyrics) Primary else OnBackground
                 )
             }
+        }
+        IconButton(onClick = onOpenQueue) {
+            Icon(
+                imageVector = Icons.Default.QueueMusic,
+                contentDescription = "Queue",
+                tint = OnBackground
+            )
         }
         Box {
             IconButton(onClick = { showMenu = true }) {

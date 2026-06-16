@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import kotlinx.coroutines.launch
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.pixelus.music.data.*
+import com.pixelus.music.data.playlist.LocalPlaylist
 import com.pixelus.music.player.MusicService
 import com.pixelus.music.ui.detail.DetailScreen
 import com.pixelus.music.ui.library.*
@@ -62,6 +63,7 @@ class MainActivity : ComponentActivity() {
                 var albums by remember { mutableStateOf(emptyList<Album>()) }
                 var artists by remember { mutableStateOf(emptyList<Artist>()) }
                 var playlists by remember { mutableStateOf(emptyList<Playlist>()) }
+                var localPlaylists by remember { mutableStateOf(emptyList<LocalPlaylist>()) }
                 var genres by remember { mutableStateOf(emptyList<Genre>()) }
                 var folders by remember { mutableStateOf(emptyList<MusicFolder>()) }
                 var currentScreen by remember { mutableStateOf("library") }
@@ -123,6 +125,9 @@ class MainActivity : ComponentActivity() {
                     player.restorePlayerState(allSongs)
                 }
 
+                val repoPlaylists by PixelusApp.playlistRepository.playlists.collectAsStateWithLifecycle()
+                LaunchedEffect(repoPlaylists) { localPlaylists = repoPlaylists }
+
                 when {
                     detailSongs.isNotEmpty() -> {
                         BackHandler { detailSongs = emptyList(); currentScreen = "library" }
@@ -145,6 +150,7 @@ class MainActivity : ComponentActivity() {
                             albums = albums,
                             artists = artists,
                             playlists = playlists,
+                            localPlaylists = localPlaylists,
                             genres = genres,
                             folders = folders,
                             playerState = playerState,
@@ -171,6 +177,12 @@ class MainActivity : ComponentActivity() {
                                     detailSongs = repository.loadPlaylistSongs(playlist.id)
                                 }
                             },
+                            onLocalPlaylistClick = { localPlaylist ->
+                                detailTitle = localPlaylist.name
+                                detailSubtitle = "${localPlaylist.songs.size} songs"
+                                detailSongs = localPlaylist.songs
+                                currentScreen = "detail"
+                            },
                             onGenreClick = { genre ->
                                 detailTitle = genre.name
                                 detailSubtitle = "${genre.songCount} songs"
@@ -187,7 +199,9 @@ class MainActivity : ComponentActivity() {
                             onSettingsClick = { currentScreen = "settings" },
                             onPlayerBarClick = { currentScreen = "now_playing" },
                             onPlayPause = { player.togglePlayPause() },
-                            onSkipNext = { player.skipToNext() }
+                            onSkipNext = { player.skipToNext() },
+                            onRenamePlaylist = { id, name -> PixelusApp.playlistRepository.renamePlaylist(id, name) },
+                            onDeletePlaylist = { id -> PixelusApp.playlistRepository.deletePlaylist(id) }
                         )
                     }
                     currentScreen == "now_playing" -> {
